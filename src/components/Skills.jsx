@@ -1,173 +1,148 @@
-// import React from "react";
-// import { Languages } from "lucide-react";
-// import reactimg from "../assets/react.jpg";
-// import githubimg from "../assets/github.jpg";
-// import javaimg from "../assets/java.jpg";
-// import phpimg from "../assets/php.jpg";
-// import nodeimg from "../assets/node.jpg";
-// import vercelimg from "../assets/vercel.jpg";
-// import netlifyimg from "../assets/netlify.jpg";
-// import tailimg from "../assets/tailwind.jpg";
-// import mysqlimg from "../assets/mysql.jpg";
-// import mongoimg from "../assets/mongodb.jpg";
-// import render from "../assets/render.png";
-// import git from "../assets/git.png";
-
-// const Skills = () => {
-//   const skill = [
-//     { title: "React JS", img: reactimg },
-//     { title: "Tailwind Css", img: tailimg },
-//     { title: "Node JS", img: nodeimg },
-//     { title: "Java", img: javaimg },
-//     { title: "PHP", img: phpimg },
-//     { title: "MYSQL", img: mysqlimg },
-//     { title: "MongoDB", img: mongoimg },
-//     { title: "Github", img: githubimg },
-//     { title: "Git", img: git },
-//     { title: "Netlify", img: netlifyimg },
-//     { title: "Vercel", img: vercelimg },
-//     { title: "Render", img: render },
-//   ];
-
-//   return (
-//     <>
-//       <div
-//         className="min-h-auto mb-10 flex justify-center items-center px-4 sm:px-6"
-//         id="skill"
-//         data-aos="flip-right"
-//       >
-//         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 mt-20 mb-20">
-//           {skill.map((skill, index) => (
-//             <div
-//               key={index}
-//               className="group transition-all duration-300 bg-[#111111] border border-[#1f1f1f] hover:border-[#c1ff72] h-auto w-full sm:w-[120px] md:w-[140px] lg:w-[150px] rounded-xl flex flex-col gap-4 justify-center items-center p-5 shadow-md hover:shadow-[#c1ff72]/20 hover:-translate-y-2"
-//             >
-//               <img
-//                 src={skill.img}
-//                 alt={skill.title}
-//                 className="h-16 w-16 sm:h-20 sm:w-20 rounded-full object-cover border border-[#2a2a2a] group-hover:border-[#c1ff72] transition duration-300"
-//               />
-//               <p className="text-center text-sm sm:text-base text-[#c1ff72] font-medium">
-//                 {skill.title}
-//               </p>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Skills;
-import useReveal from "../hooks/useReveal";
+import { motion } from "framer-motion";
+import { Monitor, Server, Wrench } from "lucide-react";
+import { cn } from "../lib/utils";
 
 const SKILL_GROUPS = [
   {
     category: "Frontend",
+    icon: Monitor,
     tag: "client",
     skills: [
-      { name: "HTML", level: 70 },
-      { name: "CSS", level: 70 },
-      { name: "JavaScript", level: 50 },
-      { name: "React.js", level: 50 },
+      { name: "React.js", level: 60 },
       { name: "Tailwind CSS", level: 60 },
+      { name: "JavaScript", level: 60 },
+      { name: "HTML & CSS", level: 80 },
     ],
   },
   {
     category: "Backend",
+    icon: Server,
     tag: "server",
     skills: [
-      { name: "Node.js", level: 50 },
-      { name: "MongoDB", level: 50 },
-      { name: "PHP", level: 70 },
-      { name: "MYSQL", level: 70 },
+      { name: "Node.js", level: 60 },
+      { name: "MongoDB", level: 60 },
+      { name: "PHP", level: 80 },
+      { name: "Java", level: 70 },
+      { name: "Python", level: 50 },
+      { name: "MySQL", level: 80 },
     ],
   },
   {
-    category: "Tools & Workflow",
-    tag: "tooling",
+    category: "Tools",
+    icon: Wrench,
+    tag: "workflow",
     skills: [
-      { name: "Git & GitHub", level: 60 },
-      { name: "Vercel & Netlify", level: 60 },
-      { name: "VS Code", level: 80 },
+      { name: "Git & GitHub", level: 70 },
+      { name: "VS Code", level: 90 },
+      { name: "Vercel / Netlify", level: 70 },
     ],
   },
 ];
 
 function SkillBar({ name, level, delay }) {
   return (
-    <div>
-      <div className="flex justify-between items-baseline mb-1.5">
-        <span className="font-mono text-sm text-paper">{name}</span>
-        <span className="font-mono text-xs text-muted">{level}%</span>
+    <div className="relative group">
+      <div className="flex justify-between items-baseline mb-2">
+        <span className="font-mono text-sm text-white font-medium group-hover:text-primary transition-colors">{name}</span>
+        <span className="font-mono text-xs text-muted font-semibold">{level}%</span>
       </div>
-      <div className="h-1.5 w-full rounded-full bg-ink-soft overflow-hidden">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-amber-dim to-amber transition-all duration-1000 ease-out"
-          style={{ width: `${level}%`, transitionDelay: `${delay}ms` }}
-        />
+      <div className="h-2 w-full rounded-full bg-ink-border overflow-hidden relative">
+        <motion.div
+          initial={{ width: 0 }}
+          whileInView={{ width: `${level}%` }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: delay, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute top-0 left-0 h-full rounded-full bg-gradient-to-r from-orange-500 to-primary relative overflow-hidden"
+        >
+          {/* Shimmer effect inside the bar */}
+          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
+        </motion.div>
       </div>
     </div>
   );
 }
 
 function SkillCard({ group, index }) {
-  const [ref, visible] = useReveal();
+  const Icon = group.icon;
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visible ? "in-view" : ""} rounded-xl border border-ink-border bg-ink-panel p-7 hover:border-amber/40 hover:-translate-y-1 transition-all duration-300`}
-      style={{ animationDelay: `${index * 140}ms` }}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.15 }}
+      className="glass-card rounded-2xl p-8 relative overflow-hidden group shadow-lg"
     >
-      <div className="flex items-center justify-between mb-6">
-        <h3 className="font-display text-lg font-semibold text-paper">
-          {group.category}
-        </h3>
-        <span className="font-mono text-xs text-teal bg-teal/10 border border-teal/20 rounded-full px-2.5 py-1">
-          {group.tag}
-        </span>
+      {/* Subtle background glow on hover */}
+      <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      
+      <div className="relative z-10">
+        <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-primary shadow-inner">
+              <Icon size={20} />
+            </div>
+            <h3 className="font-display text-xl font-bold text-white tracking-wide">
+              {group.category}
+            </h3>
+          </div>
+          <span className="font-mono text-[10px] uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
+            {group.tag}
+          </span>
+        </div>
+        
+        <div className="space-y-6">
+          {group.skills.map((skill, i) => (
+            <SkillBar
+              key={skill.name}
+              name={skill.name}
+              level={skill.level}
+              delay={0.2 + i * 0.1 + index * 0.15}
+            />
+          ))}
+        </div>
       </div>
-      <div className="space-y-5">
-        {group.skills.map((skill, i) => (
-          <SkillBar
-            key={skill.name}
-            name={skill.name}
-            level={visible ? skill.level : 0}
-            delay={i * 100}
-          />
-        ))}
-      </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Skills() {
-  const [headRef, headVisible] = useReveal();
-
   return (
-    <section id="skills" className="relative py-24 bg-ink-soft/30">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div
-          ref={headRef}
-          className={`reveal ${headVisible ? "in-view" : ""} mb-16 text-center`}
-        >
-          <p className="font-mono text-sm text-amber mb-3">// skills.json</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-paper">
-            What I Work With
-          </h2>
-          <p className="font-body text-muted mt-4 max-w-xl mx-auto">
-            A snapshot of the languages, frameworks, and tools I reach for when
-            turning an idea into a working product.
-          </p>
-        </div>
+    <section id="skills" className="relative py-28 bg-ink-panel overflow-hidden">
+      {/* Grid Pattern Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,black_10%,transparent_100%)] opacity-50" />
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 md:text-center"
+        >
+          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 mb-4 md:mx-auto">
+            <span className="font-mono text-xs text-primary uppercase tracking-wider">Expertise</span>
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
+            Technical <span className="text-gradient-primary">Arsenal</span>
+          </h2>
+          <p className="font-body text-muted mt-4 max-w-xl md:mx-auto text-lg leading-relaxed">
+            A comprehensive overview of my technical skills, tools, and the technologies I use to build modern digital products.
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {SKILL_GROUPS.map((group, i) => (
             <SkillCard key={group.category} group={group} index={i} />
           ))}
         </div>
       </div>
+
+      <style jsx="true">{`
+        @keyframes shimmer {
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
     </section>
   );
 }

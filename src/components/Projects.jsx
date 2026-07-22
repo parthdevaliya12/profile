@@ -1,254 +1,182 @@
-// import React from "react";
-// import { Github, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
+import { Github, ExternalLink, ArrowRight } from "lucide-react";
+import { cn } from "../lib/utils";
 
-// import p1 from "../assets/p1.png";
-// import p2 from "../assets/p2.png";
-// import p3 from "../assets/esvio.png";
-// import p4 from "../assets/p4.png";
-
-// const Projects = () => {
-//   const githublink = () => {
-//     window.open("https://github.com/parthdevaliya12");
-//   };
-
-//   const project = [
-//     {
-//       img: p1,
-//       title: "E-commerce Website (AirWell)",
-//       desc: "A complete AC Selling / E-Commerce Website developed using PHP and MySQL. This project includes product listing, customer management, cart system and admin panel to manage products and orders.",
-//       tech: "PHP, MySQL, HTML, CSS, JavaScript, AJAX",
-//     },
-//     {
-//       img: p2,
-//       title: "E-commerce Website (TeleMart)",
-//       desc: "A complete TV Selling / E-Commerce Website built using Django and SQLite. This project allows users to browse TVs, view product details, add items to cart, and place orders. It also includes an Admin Panel to manage products, categories, and orders.",
-//       tech: "Django, SQLite, HTML, CSS, JavaScript, AJAX",
-//     },
-//     {
-//       img: p4,
-//       title: "Expense Tracker (SpendWithMe)",
-//       desc: "SpendWithMe is a full-stack Group Expense Management web application built using the MERN stack. It allows users to create groups, split expenses equally using a unique group code, track balances, and generate professional PDF transaction reports.",
-//       tech: "MongoDB, Express.js, React.js, Node.js",
-//       link: "https://spendwithme.vercel.app/",
-//     },
-//     {
-//       img: p3,
-//       title: "Esvio – Property Listing & Booking Platform (Airbnb Clone)",
-//       desc: "Esvio is a modern, responsive property listing and booking web application built using the MERN Stack. Users can list properties, browse listings, book properties, manage bookings, and update or delete their own listings.",
-//       tech: "MongoDB, Express.js, React.js, Node.js",
-//       link: "https://esvio.vercel.app/",
-//     },
-//   ];
-
-//   return (
-//     <>
-//       <div
-//         className="min-h-[700px] mb-20 flex justify-center items-center px-4 sm:px-6"
-//         id="project"
-//       >
-//         <div
-//           data-aos="flip-right"
-//           className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 gap-8 w-full max-w-[1200px]"
-//         >
-//           {project.map((proj, index) => (
-//             <div
-//               key={index}
-//               className="bg-[#111111] border border-[#1f1f1f] rounded-xl shadow-lg p-5 flex flex-col gap-4 transition-all duration-300 hover:scale-105 hover:shadow-[#c1ff72]/20"
-//             >
-//               {/* Project Image */}
-//               <img
-//                 src={proj.img}
-//                 alt={proj.title}
-//                 className="w-full h-[180px] object-cover rounded-lg"
-//               />
-
-//               {/* Content */}
-//               <div className="flex flex-col gap-3 text-center">
-//                 <h2 className="text-xl font-semibold text-[#c1ff72]">
-//                   {proj.title}
-//                 </h2>
-
-//                 <p className="text-sm text-gray-300 leading-relaxed">
-//                   {proj.desc}
-//                 </p>
-
-//                 {/* Tech Stack */}
-//                 <div className="flex flex-wrap justify-center gap-2 mt-2">
-//                   {proj.tech.split(",").map((tech, i) => (
-//                     <span
-//                       key={i}
-//                       className="text-xs bg-[#1f1f1f] text-[#c1ff72] px-3 py-1 rounded-full border border-[#2a2a2a]"
-//                     >
-//                       {tech.trim()}
-//                     </span>
-//                   ))}
-//                 </div>
-
-//                 {/* Icons Section */}
-//                 <div className="flex justify-center gap-6 mt-4">
-//                   {/* GitHub Icon */}
-//                   <Github
-//                     size={22}
-//                     className="cursor-pointer text-white hover:text-[#c1ff72] transition"
-//                     onClick={githublink}
-//                   />
-
-//                   {/* Live Link Icon (if available) */}
-//                   {proj.link && (
-//                     <ExternalLink
-//                       size={22}
-//                       className="cursor-pointer text-white hover:text-[#c1ff72] transition"
-//                       onClick={() => window.open(proj.link)}
-//                     />
-//                   )}
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Projects;
-import useReveal from "../hooks/useReveal";
+// Re-enable image imports from the original codebase
+import p1 from "../assets/p1.png";
+import p2 from "../assets/p2.png";
+import p3 from "../assets/esvio.png";
+import p4 from "../assets/p4.png";
 
 const PROJECTS = [
   {
-    name: "Real Estate Booking Platform (Airbnb Clone)",
+    name: "Esvio – Property Booking Platform",
     type: "Marketplace Platform",
-    description:
-      "Esvio is a modern, responsive property listing and booking web application built using the MERN Stack.Users can list properties, browse listings, book properties, manage bookings, and update or delete their own listings",
-    stack: ["React", "Tailwind", "Node", "MongoDB"],
+    description: "Esvio is a modern, responsive property listing and booking web application built using the MERN Stack. Users can list properties, browse listings, book properties, and manage bookings.",
+    stack: ["MongoDB", "Express.js", "React.js", "Node.js"],
     repo: "https://github.com/parthdevaliya12/Airbnb-Clone",
     live: "https://esvio.vercel.app",
     featured: true,
+    img: p3,
   },
   {
-    name: "Online Television Shopping System",
+    name: "TeleMart – TV Shopping",
     type: "E-Commerce Platform",
-    description:
-      "This project allows users to browse TVs, view product details, add items to cart, and place orders.It also includes an Admin Panel to manage products, categories, and orders.",
-    stack: ["Bootstrap", "Django", "SQLite"],
+    description: "A complete TV Selling / E-Commerce Website built using Django and SQLite. Includes an Admin Panel to manage products, categories, and orders.",
+    stack: ["Django", "SQLite", "JavaScript", "Bootstrap"],
     repo: "https://github.com/parthdevaliya12/TeleMart-TV-Django",
     live: "",
     featured: false,
+    img: p2,
   },
   {
-    name: "Online Air-Conditner Shopping System",
+    name: "AirWell – AC Shopping System",
     type: "E-Commerce Platform",
-    description:
-      "This project includes product listing, customer management, cart system, and admin panel to manage products and orders.",
-    stack: ["Bootstrap", "PHP", "MySQL"],
+    description: "This project includes product listing, customer management, cart system, and an admin panel to manage products and orders effortlessly.",
+    stack: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
     repo: "https://github.com/parthdevaliya12/AirWell-AC-PHP",
     live: "",
     featured: false,
+    img: p1,
   },
 ];
 
 function ProjectCard({ project, index }) {
-  const [ref, visible] = useReveal();
-
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visible ? "in-view" : ""} group relative rounded-xl border border-ink-border bg-ink-panel overflow-hidden hover:border-amber/40 hover:-translate-y-1.5 transition-all duration-300 ${
-        project.featured ? "lg:col-span-1" : ""
-      }`}
-      style={{ animationDelay: `${index * 110}ms` }}
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={cn(
+        "group relative rounded-3xl border border-white/10 bg-ink-soft/40 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:-translate-y-2",
+        project.featured ? "lg:col-span-2 grid lg:grid-cols-2" : "col-span-1 flex flex-col"
+      )}
     >
-      {/* file-tab header */}
-      <div className="flex items-center justify-between bg-ink-soft border-b border-ink-border px-5 py-3">
-        <span className="font-mono text-xs text-muted">
-          /projects/{project.name.toLowerCase()}
-        </span>
-        {project.featured && (
-          <span className="font-mono text-[10px] uppercase tracking-wide text-amber bg-amber/10 border border-amber/20 rounded-full px-2 py-0.5">
-            Featured
-          </span>
-        )}
+      {/* Project Image Box */}
+      <div className={cn(
+        "relative overflow-hidden bg-ink",
+        project.featured ? "h-full min-h-[300px]" : "h-56"
+      )}>
+        <div className="absolute inset-0 bg-gradient-to-t from-ink-panel to-transparent z-10 opacity-60" />
+        <img
+          src={project.img}
+          alt={project.name}
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+        />
+        
+        {/* Project Links Overlay */}
+        <div className="absolute top-4 right-4 z-20 flex items-center gap-2 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          {project.repo && (
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-primary transition-colors"
+            >
+              <Github size={18} />
+            </a>
+          )}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-primary transition-colors"
+            >
+              <ExternalLink size={18} />
+            </a>
+          )}
+        </div>
       </div>
 
-      <div className="p-6">
-        <p className="font-mono text-xs text-teal mb-1">{project.type}</p>
-        <h3 className="font-display text-xl font-semibold text-paper group-hover:text-amber transition-colors">
+      {/* Content */}
+      <div className={cn(
+        "relative p-8 z-20 flex flex-col justify-center",
+        project.featured ? "h-full" : "flex-grow"
+      )}>
+        {/* Background glow on hover */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />
+
+        <div className="flex items-center gap-3 mb-4">
+          <span className="font-mono text-xs font-semibold text-primary uppercase tracking-wider bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
+            {project.type}
+          </span>
+        </div>
+
+        <h3 className="font-display text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 mb-3">
           {project.name}
         </h3>
-        <p className="font-body text-sm text-muted mt-3 leading-relaxed">
+
+        <p className="font-body text-muted/90 text-sm leading-relaxed mb-6">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 mt-5">
+        <div className="flex flex-wrap gap-2 mt-auto">
           {project.stack.map((tech) => (
             <span
               key={tech}
-              className="font-mono text-[11px] text-paper/80 bg-ink-soft border border-ink-border rounded-md px-2 py-1"
+              className="font-mono text-[11px] text-white/70 bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 transition-colors group-hover:border-primary/30"
             >
               {tech}
             </span>
           ))}
         </div>
-
-        <div className="flex items-center gap-5 mt-6">
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-sm text-amber hover:text-paper transition-colors inline-flex items-center gap-1.5"
-          >
-            Live demo <span aria-hidden="true">↗</span>
-          </a>
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-mono text-sm text-muted hover:text-paper transition-colors inline-flex items-center gap-1.5"
-          >
-            Source <span aria-hidden="true">↗</span>
-          </a>
-        </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Projects() {
-  const [headRef, headVisible] = useReveal();
-
   return (
-    <section id="projects" className="relative py-24 bg-ink">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div
-          ref={headRef}
-          className={`reveal ${headVisible ? "in-view" : ""} mb-16 text-center`}
-        >
-          <p className="font-mono text-sm text-amber mb-3">// projects/</p>
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-paper">
-            Selected Work
-          </h2>
-          <p className="font-body text-muted mt-4 max-w-xl mx-auto">
-            A few projects that best represent how I think through problems and
-            ship interfaces end to end.
-          </p>
-        </div>
+    <section id="projects" className="relative py-28 bg-ink overflow-hidden">
+      {/* Background Ornaments */}
+      <div className="absolute top-40 right-0 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[150px] mix-blend-screen" />
 
-        <div className="grid sm:grid-cols-2 gap-6">
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mb-16 md:text-center"
+        >
+          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 mb-4 md:mx-auto">
+            <span className="font-mono text-xs text-primary uppercase tracking-wider">Portfolio</span>
+          </div>
+          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
+            Featured <span className="text-gradient-primary">Projects</span>
+          </h2>
+          <p className="font-body text-muted mt-4 max-w-xl md:mx-auto text-lg leading-relaxed">
+            A selection of robust applications I've built, focusing on clean code, seamless user experiences, and scalable architecture.
+          </p>
+        </motion.div>
+
+        <div className="grid lg:grid-cols-2 gap-8">
           {PROJECTS.map((project, i) => (
             <ProjectCard key={project.name} project={project} index={i} />
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="text-center mt-16"
+        >
           <a
-            href="https://github.com/parthdevaliya12?tab=repositories"
+            href="https://github.com/parthdevaliya12"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-md border border-ink-border px-6 py-3 font-mono text-sm text-paper hover:border-amber/50 hover:text-amber transition-all duration-200"
+            className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 px-8 font-body text-sm font-medium text-white transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary active:scale-95"
           >
-            View all repositories <span aria-hidden="true">→</span>
+            <span className="flex items-center gap-2 relative z-10">
+              View All on GitHub
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+            </span>
           </a>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

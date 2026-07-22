@@ -1,161 +1,26 @@
-// import { Github, Linkedin, Facebook } from "lucide-react";
-// import React from "react";
-// import { ReactTyped } from "react-typed";
-// // import profile from "../assets/profile.jpg";
-// import profile from "../assets/myphoto2.jpeg";
-
-// const Hero = () => {
-//   const connect = () => {
-//     const section = document.getElementById("contact");
-//     if (section) {
-//       section.scrollIntoView({ behavior: "smooth" });
-//     }
-//   };
-
-//   const github = () => window.open("https://github.com/parthdevaliya12");
-//   const linkedin = () =>
-//     window.open("https://www.linkedin.com/in/parthdevaliya12");
-//   const facebook = () =>
-//     window.open("https://www.facebook.com/parthdevaliya12");
-
-//   return (
-//     <div
-//       className="w-full max-w-screen-xl mx-auto min-h-screen
-//       flex flex-col md:flex-row justify-center items-center
-//       gap-10 px-4 sm:px-6 lg:px-10
-//       pt-24 pb-28"
-//       id="home"
-//     >
-//       {/* Profile */}
-//       <div
-//         className="h-36 w-36 sm:h-44 sm:w-44 md:h-52 md:w-52
-//           rounded-full p-[3px]
-//           border-4 border-[#c1ff72]
-//           animate-[pulseBorder_2s_ease-in-out_infinite]"
-//       >
-//         <img
-//           src={profile}
-//           alt="Parth"
-//           className="h-full w-full rounded-full object-cover"
-//         />
-//       </div>
-
-//       {/* Info */}
-//       <div
-//         className="flex flex-col gap-4 text-center md:text-left max-w-lg
-//       animate-[fadeUp_1s_ease-out]"
-//       >
-//         <p className="text-xl sm:text-2xl animate-pulse">Hi, there</p>
-
-//         <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold">
-//           I'm Parth Devaliya
-//         </h1>
-
-//         <p className="text-xl sm:text-2xl">
-//           <span className="text-[#c1ff72]">
-//             <ReactTyped
-//               strings={["Web Developer", "Frontend Developer"]}
-//               typeSpeed={60}
-//               backSpeed={40}
-//               loop
-//             />
-//           </span>
-//         </p>
-
-//         <p className="text-sm sm:text-base text-gray-300">
-//           Frontend-focused developer turning ideas into interactive digital
-//           experiences. Continuously learning backend technologies to become a
-//           complete Full Stack Developer.
-//         </p>
-
-//         {/* Icons */}
-//         <div className="flex gap-4 justify-center md:justify-start mt-3">
-//           <Linkedin
-//             onClick={linkedin}
-//             className="text-[#c1ff72] cursor-pointer
-//             border-2 border-[#c1ff72] rounded-full
-//             p-3 h-10 w-10 sm:h-12 sm:w-12
-//             transition-all duration-300
-//             hover:scale-125
-//             hover:shadow-[0_0_20px_#c1ff72]
-//             animate-[float_5s_ease-in-out_infinite]"
-//           />
-
-//           <Github
-//             onClick={github}
-//             className="text-[#c1ff72] cursor-pointer
-//             border-2 border-[#c1ff72] rounded-full
-//             p-3 h-10 w-10 sm:h-12 sm:w-12
-//             transition-all duration-300
-//             hover:scale-125
-//             hover:shadow-[0_0_20px_#c1ff72]
-//             animate-[float_6s_ease-in-out_infinite]"
-//           />
-
-//           <Facebook
-//             onClick={facebook}
-//             className="text-[#c1ff72] cursor-pointer
-//             border-2 border-[#c1ff72] rounded-full
-//             p-3 h-10 w-10 sm:h-12 sm:w-12
-//             transition-all duration-300
-//             hover:scale-125
-//             hover:shadow-[0_0_20px_#c1ff72]
-//             animate-[float_7s_ease-in-out_infinite]"
-//           />
-//         </div>
-
-//         {/* Buttons */}
-//         <div className="flex flex-col sm:flex-row gap-4 mt-5 justify-center md:justify-start">
-//           <a
-//             href="parth-cv.pdf"
-//             className="bg-[#c1ff72] text-black px-6 py-2 rounded-full
-//             text-sm sm:text-base
-//             transition hover:scale-110 hover:shadow-[0_0_20px_#c1ff72]"
-//           >
-//             Download Resume
-//           </a>
-
-//           <button
-//             onClick={connect}
-//             className="bg-[#c1ff72] text-black px-6 py-2 rounded-full
-//             text-sm sm:text-base
-//             transition hover:scale-110 hover:shadow-[0_0_20px_#c1ff72]"
-//           >
-//             Hire Me
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Hero;
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Github, Linkedin, ArrowRight, Sparkles } from "lucide-react";
+import { cn } from "../lib/utils";
 
-const ROLES = ["Full Stack Developer", "Web Designer", "Web Enthusiast"];
+const ROLES = ["Full Stack Developer", "Web Enthusiast"];
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [text, setText] = useState("");
   const [deleting, setDeleting] = useState(false);
 
-  // Typewriter effect cycling through roles
+  // Typewriter effect
   useEffect(() => {
     const current = ROLES[roleIndex];
     let timeout;
 
     if (!deleting && text.length < current.length) {
-      timeout = setTimeout(
-        () => setText(current.slice(0, text.length + 1)),
-        65,
-      );
+      timeout = setTimeout(() => setText(current.slice(0, text.length + 1)), 80);
     } else if (!deleting && text.length === current.length) {
-      timeout = setTimeout(() => setDeleting(true), 1400);
+      timeout = setTimeout(() => setDeleting(true), 2000);
     } else if (deleting && text.length > 0) {
-      timeout = setTimeout(
-        () => setText(current.slice(0, text.length - 1)),
-        35,
-      );
+      timeout = setTimeout(() => setText(current.slice(0, text.length - 1)), 40);
     } else if (deleting && text.length === 0) {
       setDeleting(false);
       setRoleIndex((i) => (i + 1) % ROLES.length);
@@ -167,151 +32,185 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden bg-ink"
+      className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden bg-ink"
     >
-      {/* Ambient dot-grid texture */}
-      <div className="absolute inset-0 bg-dot-grid bg-dot-sm opacity-[0.15] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]" />
-
-      {/* Glow accents */}
-      <div className="absolute top-1/4 -left-32 h-72 w-72 rounded-full bg-amber/10 blur-3xl animate-glow" />
-      <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-teal/10 blur-3xl animate-glow" />
+      {/* Background Gradients & Particles (Framer Motion) */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-1/4 -left-32 h-[500px] w-[500px] rounded-full bg-primary/20 blur-[120px] mix-blend-screen animate-pulse-slow" />
+        <div className="absolute bottom-10 right-0 h-[600px] w-[600px] rounded-full bg-orange-500/10 blur-[150px] mix-blend-screen" />
+        
+        {/* Subtle grid overlay */}
+        <div 
+          className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,black_40%,transparent_100%)]"
+        />
+      </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-8 grid lg:grid-cols-[1.1fr,0.9fr] gap-12 items-center w-full">
-        {/* Left: copy */}
-        <div>
-          <div className="inline-flex items-center gap-2 font-mono text-xs text-teal bg-teal/10 border border-teal/20 rounded-full px-3 py-1 mb-6">
-            <span className="h-1.5 w-1.5 rounded-full bg-teal animate-pulse" />
-            Available for new opportunities
-          </div>
+        {/* Left Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="inline-flex items-center gap-2 font-mono text-xs text-primary bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5 mb-6 backdrop-blur-md"
+          >
+            <Sparkles size={14} className="animate-pulse" />
+            <span>Available for new opportunities</span>
+          </motion.div>
 
-          <p className="font-mono text-sm text-amber mb-3">Hi, my name is</p>
-
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold text-paper leading-[1.1]">
-            Parth Devaliya
+          <h1 className="font-display text-5xl sm:text-6xl lg:text-7xl font-bold text-white leading-[1.1] tracking-tight">
+            Building digital
+            <br />
+            <span className="text-gradient-primary">experiences.</span>
           </h1>
 
-          <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl font-medium text-muted mt-2 h-12">
-            <span className="text-amber">
-              {text}
-              <span className="border-r-2 border-amber ml-0.5 animate-blink" />
-            </span>
-          </h2>
+          <div className="font-display text-2xl sm:text-3xl font-medium text-muted mt-6 h-10">
+            I'm a <span className="text-white">{text}</span>
+            <span className="inline-block w-[3px] h-7 bg-primary ml-1 align-middle animate-pulse" />
+          </div>
 
-          <p className="font-body text-muted mt-6 max-w-lg leading-relaxed">
-            I am an aspiring Full Stack Developer currently pursuing MCA. I
-            enjoy learning modern technologies and building efficient,
-            responsive, and maintainable web applications.
+          <p className="font-body text-muted mt-6 max-w-lg text-lg leading-relaxed">
+            Frontend-focused developer turning ideas into interactive, premium digital experiences. I specialize in React, Tailwind, and crafting flawless UIs.
           </p>
 
-          <div className="flex flex-wrap items-center gap-4 mt-8">
+          <div className="flex flex-wrap items-center gap-4 mt-10">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-md bg-amber px-6 py-3 font-mono text-sm font-medium text-ink hover:bg-amber-dim hover:-translate-y-0.5 transition-all duration-200 shadow-[0_0_0_0_rgba(244,183,64,0)] hover:shadow-[0_8px_24px_-4px_rgba(244,183,64,0.4)]"
+              className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full bg-primary px-8 font-body text-base font-medium text-white shadow-[0_0_40px_-10px_rgba(239,68,68,0.5)] transition-all hover:scale-105 active:scale-95"
             >
-              View Projects
+              <span className="relative z-10 flex items-center gap-2">
+                View Projects
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-orange-500 to-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-0" />
             </a>
             <a
-              href="/PARTH_DEVALIYA_RESUME.pdf"
-              className="inline-flex items-center gap-2 rounded-md border border-ink-border px-6 py-3 font-mono text-sm text-paper hover:border-amber/50 hover:text-amber transition-all duration-200"
+              href="/Parth_Devaliya_Resume.pdf"
+              className="inline-flex h-12 items-center justify-center rounded-full border border-white/10 bg-white/5 px-8 font-body text-base font-medium text-white backdrop-blur-md transition-all hover:bg-white/10 hover:border-white/20 active:scale-95"
             >
-              View resume
+              Download Resume
             </a>
           </div>
 
-          {/* Social links */}
-          <div className="flex items-center gap-5 mt-10">
+          {/* Social Links */}
+          <div className="flex items-center gap-6 mt-12">
             {[
-              { label: "GitHub", href: "https://github.com/parthdevaliya12" },
-              {
-                label: "LinkedIn",
-                href: "https://linkedin.com/in/parthdevaliya12",
-              },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
+              { icon: Github, href: "https://github.com/parthdevaliya12", label: "GitHub" },
+              { icon: Linkedin, href: "https://linkedin.com/in/parthdevaliya12", label: "LinkedIn" },
+            ].map((social, index) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-xs text-muted hover:text-amber transition-colors underline-offset-4 hover:underline"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 + index * 0.1 }}
+                className="group flex items-center gap-2 text-muted hover:text-white transition-colors"
               >
-                {s.label}
-              </a>
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 transition-all group-hover:border-primary/50 group-hover:bg-primary/10 group-hover:text-primary">
+                  <social.icon size={18} />
+                </div>
+              </motion.a>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right: signature editor window */}
-        <div className="relative animate-float">
-          <div className="rounded-xl border border-ink-border bg-ink-panel shadow-2xl shadow-black/40 overflow-hidden">
-            {/* Tab bar */}
-            <div className="flex items-center gap-2 bg-ink-soft border-b border-ink-border px-4 py-3">
-              <span className="h-3 w-3 rounded-full bg-[#FF5F56]" />
-              <span className="h-3 w-3 rounded-full bg-[#FFBD2E]" />
-              <span className="h-3 w-3 rounded-full bg-[#27C93F]" />
-              <span className="ml-3 font-mono text-xs text-muted">
-                about-me.jsx
-              </span>
+        {/* Right Content - Code Editor Mockup */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, rotateY: 15 }}
+          animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: "easeOut" }}
+          className="relative hidden lg:block"
+          style={{ perspective: 1000 }}
+        >
+          <div className="relative animate-float rounded-2xl border border-white/10 bg-ink-panel/80 backdrop-blur-2xl shadow-2xl shadow-primary/10 overflow-hidden">
+            {/* Window Controls */}
+            <div className="flex items-center gap-2 border-b border-white/10 bg-white/5 px-4 py-3">
+              <div className="flex gap-2">
+                <span className="h-3 w-3 rounded-full bg-red-500/80" />
+                <span className="h-3 w-3 rounded-full bg-yellow-500/80" />
+                <span className="h-3 w-3 rounded-full bg-green-500/80" />
+              </div>
+              <span className="ml-4 font-mono text-xs text-muted">developer.config.js</span>
             </div>
 
-            {/* Code body */}
-            <div className="p-6 font-mono text-sm leading-7 overflow-x-auto">
+            {/* Code Content */}
+            <div className="p-6 font-mono text-[13px] leading-loose overflow-x-auto text-muted/90">
               <p>
-                <span className="text-teal">const</span>{" "}
-                <span className="text-paper">developer</span>{" "}
-                <span className="text-muted">=</span>{" "}
-                <span className="text-muted">{"{"}</span>
+                <span className="text-purple-400">const</span>{" "}
+                <span className="text-blue-400">parth</span>{" "}
+                <span className="text-white">=</span>{" "}
+                <span className="text-yellow-300">{"{"}</span>
               </p>
-              <p className="pl-4">
-                <span className="text-amber">name:</span>{" "}
-                <span className="text-[#9DC97E]">"Parth Devaliya"</span>
-                <span className="text-muted">,</span>
-              </p>
-              <p className="pl-4">
-                <span className="text-amber">role:</span>{" "}
-                <span className="text-[#9DC97E]">"Full Stack Developer"</span>
-                <span className="text-muted">,</span>
-              </p>
-              <p className="pl-4">
-                <span className="text-amber">stack:</span>{" "}
-                <span className="text-muted">[</span>
-                <span className="text-[#9DC97E]">"React"</span>
-                <span className="text-muted">, </span>
-                <span className="text-[#9DC97E]">"Tailwind"</span>
-                <span className="text-muted">, </span>
-                <span className="text-[#9DC97E]">"Node"</span>
-                <span className="text-muted">],</span>
-              </p>
-              <p className="pl-4">
-                <span className="text-amber">passion:</span>{" "}
-                <span className="text-[#9DC97E]">"clean code & UI"</span>
-                <span className="text-muted">,</span>
-              </p>
-              <p className="pl-4">
-                <span className="text-amber">basedIn:</span>{" "}
-                <span className="text-[#9DC97E]">"India"</span>
-                <span className="text-muted">,</span>
-              </p>
+              <div className="pl-6 border-l border-white/5 ml-2">
+                <p>
+                  <span className="text-cyan-400">role</span>:{" "}
+                  <span className="text-green-400">"Full Stack Developer"</span>,
+                </p>
+                <p>
+                  <span className="text-cyan-400">skills</span>: <span className="text-purple-300">[</span>
+                </p>
+                <p className="pl-4">
+                  <span className="text-green-400">"React.js"</span>, <span className="text-green-400">"Node.js"</span>,
+                </p>
+                <p className="pl-4">
+                  <span className="text-green-400">"Tailwind CSS"</span>, <span className="text-green-400">"MongoDB"</span>
+                </p>
+                <p>
+                  <span className="text-purple-300">]</span>,
+                </p>
+                <p>
+                  <span className="text-cyan-400">passion</span>:{" "}
+                  <span className="text-green-400">"Building pixel-perfect UIs"</span>,
+                </p>
+                <p>
+                  <span className="text-cyan-400">location</span>:{" "}
+                  <span className="text-green-400">"India"</span>
+                </p>
+              </div>
               <p>
-                <span className="text-muted">{"}"}</span>
-                <span className="text-muted">;</span>
+                <span className="text-yellow-300">{"}"}</span>;
               </p>
-              <p className="mt-3 text-muted">
-                <span className="text-teal">export default</span> developer
-                <span className="border-r-2 border-amber ml-1 animate-blink">
-                  &nbsp;
-                </span>
+              <p className="mt-4">
+                <span className="text-purple-400">export default</span> parth;
               </p>
             </div>
           </div>
 
-          {/* Floating tag accents */}
-          <div className="absolute -top-5 -right-5 hidden sm:flex items-center gap-1.5 rounded-md bg-ink-panel border border-ink-border px-3 py-1.5 font-mono text-xs text-teal shadow-lg">
-            ● Build passing
-          </div>
-          <div className="absolute -bottom-5 -left-5 hidden sm:flex items-center gap-1.5 rounded-md bg-ink-panel border border-ink-border px-3 py-1.5 font-mono text-xs text-amber shadow-lg">
-            Fresher
-          </div>
-        </div>
+          {/* Floating Accents */}
+          <motion.div
+            animate={{ y: [0, -10, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -top-6 -right-6 flex items-center gap-2 rounded-xl border border-white/10 bg-ink-soft/90 backdrop-blur-xl px-4 py-3 shadow-xl"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-green-500/20 text-green-400">
+              <Sparkles size={16} />
+            </div>
+            <div>
+              <p className="font-body text-xs font-medium text-white">Clean Code</p>
+              <p className="font-mono text-[10px] text-muted">0 Errors</p>
+            </div>
+          </motion.div>
+          
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute -bottom-8 -left-8 flex items-center gap-2 rounded-xl border border-white/10 bg-ink-soft/90 backdrop-blur-xl px-4 py-3 shadow-xl"
+          >
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/20 text-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <p className="font-body text-xs font-medium text-white">Modern UI</p>
+              <p className="font-mono text-[10px] text-muted">Premium Design</p>
+            </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

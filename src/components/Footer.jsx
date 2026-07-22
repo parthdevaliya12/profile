@@ -1,67 +1,9 @@
-// import React, { useState } from "react";
-// import {
-//   Home,
-//   User,
-//   Code,
-//   Award,
-//   Folder,
-//   Contact,
-//   Menu,
-//   X,
-// } from "lucide-react";
-
-// const Footer = () => {
-//   const [open, setOpen] = useState(false);
-
-//   return (
-//     <div className="w-full fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-md z-50">
-//       <hr className="border-gray-700" />
-
-//       <div className="flex justify-between items-center px-4 py-2 sm:hidden">
-//         <span className="text-white font-bold">Menu</span>
-//         <button onClick={() => setOpen(!open)}>
-//           {open ? (
-//             <X className="text-white" />
-//           ) : (
-//             <Menu className="text-white" />
-//           )}
-//         </button>
-//       </div>
-
-//       <div
-//         className={`${open ? "flex" : "hidden"} sm:flex flex-col sm:flex-row justify-center items-center py-3`}
-//       >
-//         <ul className="flex flex-col sm:flex-row gap-4 sm:gap-8 text-center">
-//           <li>
-//             <a href="#home">Home</a>
-//           </li>
-//           <li>
-//             <a href="#about">About</a>
-//           </li>
-//           <li>
-//             <a href="#skill">Skills</a>
-//           </li>
-
-//           <li>
-//             <a href="#project">Projects</a>
-//           </li>
-//           <li>
-//             <a href="#contact">Contact</a>
-//           </li>
-//         </ul>
-//         <p className="text-xs sm:text-sm text-gray-400 mt-3 sm:mt-0 sm:ml-6">
-//           © {new Date().getFullYear()} Parth Devaliya. All rights reserved.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Footer;
+import { Github, Linkedin, ArrowUp } from "lucide-react";
+import { motion } from "framer-motion";
 
 const SOCIALS = [
-  { label: "GitHub", href: "https://github.com/parthdevaliya12" },
-  { label: "LinkedIn", href: "https://linkedin.com/in/parthdevaliya12" },
+  { label: "GitHub", href: "https://github.com/parthdevaliya12", icon: Github },
+  { label: "LinkedIn", href: "https://linkedin.com/in/parthdevaliya12", icon: Linkedin },
 ];
 
 export default function Footer() {
@@ -72,54 +14,67 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative border-t border-ink-border bg-ink">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 py-10">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+    <footer className="relative bg-ink overflow-hidden pt-20 pb-10">
+      {/* Top Border Gradient */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      
+      {/* Background Glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[200px] w-[500px] rounded-full bg-primary/5 blur-[120px] mix-blend-screen pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-12">
+          {/* Logo / Brand */}
           <a
             href="#home"
             onClick={(e) => {
               e.preventDefault();
               scrollToTop();
             }}
-            className="flex items-center gap-2 font-display text-base font-semibold text-paper"
+            className="group flex items-center gap-3 font-display text-xl font-bold text-white transition-colors"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-ink-soft border border-ink-border text-amber font-mono text-sm">
-              &lt;/&gt;
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-primary text-white shadow-[0_0_15px_rgba(239,68,68,0.3)] transition-transform duration-300 group-hover:scale-110">
+              <span className="font-mono text-sm font-black">&lt;/&gt;</span>
             </span>
-            parth<span className="text-amber">.</span>dev
+            parth<span className="text-primary">.</span>dev
           </a>
 
-          <ul className="flex items-center gap-6 font-mono text-sm text-muted">
-            {SOCIALS.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-amber transition-colors"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
+          {/* Social Links */}
+          <ul className="flex items-center gap-4">
+            {SOCIALS.map((s) => {
+              const Icon = s.icon;
+              return (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-muted hover:text-primary hover:border-primary/30 hover:bg-primary/10 transition-all duration-300 hover:-translate-y-1"
+                  >
+                    <Icon size={18} />
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
+          {/* Back to Top */}
           <button
             onClick={scrollToTop}
             aria-label="Back to top"
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-ink-border text-muted hover:border-amber/50 hover:text-amber transition-all duration-200"
+            className="group flex h-10 w-10 items-center justify-center rounded-full bg-white/5 border border-white/10 text-muted hover:text-white transition-all duration-300 hover:border-white/30"
           >
-            ↑
+            <ArrowUp size={18} className="transition-transform duration-300 group-hover:-translate-y-1" />
           </button>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-ink-border flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="font-mono text-xs text-muted">
+        {/* Bottom Bar */}
+        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="font-mono text-xs text-muted/70">
             © {year} Parth Gajjar. All rights reserved.
           </p>
-          <p className="font-mono text-xs text-muted">
-            Built with <span className="text-amber">React</span> &{" "}
-            <span className="text-teal">Tailwind CSS</span>
+          <p className="font-mono text-xs text-muted/70 flex items-center gap-1.5">
+            Crafted with <span className="text-primary animate-pulse">♥</span> using React & Tailwind
           </p>
         </div>
       </div>
