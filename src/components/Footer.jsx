@@ -74,7 +74,7 @@ export default function Footer() {
             © {year} Parth Gajjar. All rights reserved.
           </p>
           <p className="font-mono text-xs text-muted/70 flex items-center gap-1.5">
-            Crafted with <span className="text-primary animate-pulse">♥</span> using React & Tailwind
+            Designed <span className="text-primary animate-pulse">♥</span> using React & Tailwind
           </p>
         </div>
       </div>
