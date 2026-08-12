@@ -6,7 +6,6 @@ import About from "./About";
 import Skills from "./Skills";
 import Projects from "./Projects";
 import Contact from "./Contact";
-// import Certificate from "./Certificate";
 
 const LandingPage = () => {
   return (
@@ -15,7 +14,6 @@ const LandingPage = () => {
       <Hero />
       <About />
       <Skills />
-      {/* <Certificate /> */}
       <Projects />
       <Contact />
       <Footer />

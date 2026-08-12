@@ -1,23 +1,24 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Code2 } from "lucide-react";
+import { Menu, X, Sun, Moon, Code2, MessageSquare } from "lucide-react";
 import { cn } from "../lib/utils";
+import { useTheme } from "../hooks/useTheme";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
   { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -32,147 +33,133 @@ export default function Navbar() {
   };
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        scrolled ? "py-3" : "py-5"
-      )}
-    >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.nav
-          initial={{ y: -100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className={cn(
-            "relative flex items-center justify-between px-6 h-16 rounded-2xl transition-all duration-300",
-            scrolled
-              ? "glass shadow-2xl border-white/10"
-              : "bg-transparent border-transparent"
-          )}
+    <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 pointer-events-none flex justify-center">
+      
+      <motion.nav
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        className={cn(
+          "pointer-events-auto flex items-center justify-between p-2 rounded-full transition-all duration-500 w-full lg:w-auto",
+          scrolled
+            ? "bg-paper/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-ink-border"
+            : "bg-paper/40 backdrop-blur-md shadow-lg border border-transparent"
+        )}
+      >
+        
+        {/* Logo */}
+        <a
+          href="#home"
+          onClick={(e) => {
+            e.preventDefault();
+            handleClick("#home");
+          }}
+          className="group flex items-center gap-3 pl-3 pr-4 py-2 relative z-50"
         >
-          {/* Logo */}
-          <a
-            href="#home"
-            onClick={(e) => {
-              e.preventDefault();
-              handleClick("#home");
-            }}
-            className="group flex items-center gap-2 font-display text-xl font-bold text-white z-50"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-300">
-              <Code2 size={20} />
-            </div>
-            <span className="tracking-tight">
-              Parth<span className="text-primary">.</span>
-            </span>
-          </a>
-
-          {/* Desktop Links */}
-          <ul className="hidden md:flex items-center gap-1 font-body text-sm font-medium">
-            {NAV_LINKS.map((link) => {
-              const isActive = active === link.href;
-              return (
-                <li key={link.href} className="relative">
-                  <a
-                    href={link.href}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleClick(link.href);
-                    }}
-                    className={cn(
-                      "relative px-4 py-2 rounded-full transition-colors duration-300 z-10 block",
-                      isActive ? "text-white" : "text-muted hover:text-white"
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                  {isActive && (
-                    <motion.div
-                      layoutId="nav-indicator"
-                      className="absolute inset-0 bg-white/10 rounded-full z-0 border border-white/5"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Desktop Actions */}
-          <div className="hidden md:flex items-center gap-4 z-50">
-            <a
-              href="#contact"
-              onClick={(e) => {
-                e.preventDefault();
-                handleClick("#contact");
-              }}
-              className="relative inline-flex h-9 items-center justify-center overflow-hidden rounded-full bg-primary px-5 font-body text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 hover:shadow-primary/30 active:scale-95"
-            >
-              <span className="relative z-10">Hire Me</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-primary opacity-0 hover:opacity-100 transition-opacity duration-300 z-0" />
-            </a>
+          <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-primary to-secondary text-white shadow-md group-hover:shadow-[0_0_15px_rgba(245,158,11,0.5)] transition-shadow">
+            <Code2 size={18} />
           </div>
+          <span className="font-display text-lg font-bold text-[var(--theme-white)] tracking-tight">Parth</span>
+        </a>
 
-          {/* Mobile Toggle */}
+        {/* Desktop Links (Pill Style) */}
+        <ul className="hidden lg:flex items-center gap-1 mx-4">
+          {NAV_LINKS.map((link) => {
+            const isActive = active === link.href;
+            return (
+              <li key={link.href} className="relative">
+                <a
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick(link.href);
+                  }}
+                  className={cn(
+                    "relative px-5 py-2.5 text-sm font-semibold transition-colors z-10 block rounded-full",
+                    isActive ? "text-[var(--theme-active-text)]" : "text-muted hover:text-[var(--theme-white)]"
+                  )}
+                >
+                  {link.label}
+                </a>
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-pill"
+                    className="absolute inset-0 bg-[var(--theme-active-pill)] rounded-full z-0 shadow-md"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </li>
+            );
+          })}
+        </ul>
+
+        {/* Desktop Actions */}
+        <div className="hidden lg:flex items-center gap-2 pr-2 relative z-50">
           <button
-            className="md:hidden relative z-50 p-2 -mr-2 text-white"
-            onClick={() => setOpen((o) => !o)}
-            aria-label="Toggle navigation menu"
+            onClick={toggleTheme}
+            className="flex h-11 w-11 items-center justify-center rounded-full bg-ink/5 hover:bg-ink/10 text-[var(--theme-white)] transition-colors"
+            aria-label="Toggle Theme"
           >
-            {open ? <X size={24} /> : <Menu size={24} />}
+            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
           </button>
-        </motion.nav>
+        </div>
 
-        {/* Mobile Menu Dropdown */}
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              initial={{ opacity: 0, y: -20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.95 }}
-              transition={{ duration: 0.2 }}
-              className="absolute top-20 left-4 right-4 glass rounded-2xl overflow-hidden md:hidden border border-white/10 shadow-2xl flex flex-col p-4 origin-top"
+        {/* Mobile Toggle */}
+        <div className="lg:hidden flex items-center gap-2 pr-2">
+            <button
+                onClick={toggleTheme}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/5 text-[var(--theme-white)] transition-colors"
+                aria-label="Toggle Theme"
             >
-              <ul className="flex flex-col gap-2">
-                {NAV_LINKS.map((link) => {
-                  const isActive = active === link.href;
-                  return (
-                    <li key={link.href}>
-                      <a
-                        href={link.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleClick(link.href);
-                        }}
-                        className={cn(
-                          "block px-4 py-3 rounded-xl transition-all duration-200 font-medium",
-                          isActive
-                            ? "bg-primary/10 text-primary"
-                            : "text-muted hover:bg-white/5 hover:text-white"
-                        )}
-                      >
-                        {link.label}
-                      </a>
-                    </li>
-                  );
-                })}
-                <li className="mt-4">
-                  <a
-                    href="#contact"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleClick("#contact");
-                    }}
-                    className="flex w-full items-center justify-center rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white transition-transform active:scale-95 shadow-lg shadow-primary/20"
-                  >
-                    Hire Me
-                  </a>
-                </li>
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+                {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
+            </button>
+            <button
+                className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--theme-active-pill)] text-[var(--theme-active-text)] shadow-md"
+                onClick={() => setOpen((o) => !o)}
+            >
+                {open ? <X size={20} /> : <Menu size={20} />}
+            </button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9, y: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: -20 }}
+            transition={{ type: "spring", stiffness: 200, damping: 20 }}
+            className="pointer-events-auto absolute top-20 left-4 right-4 bg-paper/95 backdrop-blur-xl rounded-3xl border border-ink-border shadow-2xl p-6 lg:hidden overflow-hidden"
+          >
+            <ul className="flex flex-col gap-2 relative z-10">
+              {NAV_LINKS.map((link) => {
+                const isActive = active === link.href;
+                return (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleClick(link.href);
+                      }}
+                      className={cn(
+                        "block px-5 py-4 rounded-2xl transition-all duration-200 font-bold",
+                        isActive
+                          ? "bg-[var(--theme-active-pill)] text-[var(--theme-active-text)] shadow-md"
+                          : "text-muted hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--theme-white)]"
+                      )}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
     </header>
   );
 }

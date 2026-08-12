@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
-import { GraduationCap, Calendar, Award } from "lucide-react";
-import { cn } from "../lib/utils";
+import { GraduationCap, Award } from "lucide-react";
 
 const EDUCATION = [
   {
@@ -19,98 +18,87 @@ const EDUCATION = [
   },
 ];
 
-function EducationItem({ item, index, isLast }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      className="relative pl-8 sm:pl-32 py-6 group"
-    >
-      {/* Timeline Line */}
-      {!isLast && (
-        <div className="absolute left-[15px] sm:left-[6.5rem] top-16 bottom-[-24px] w-[2px] bg-gradient-to-b from-primary/30 to-transparent" />
-      )}
-
-      {/* Timeline Dot/Icon */}
-      <div className="absolute left-0 sm:left-[5.5rem] top-8 flex h-8 w-8 items-center justify-center rounded-full border border-primary/30 bg-ink shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all duration-300 group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_20px_rgba(239,68,68,0.5)] z-10">
-        <GraduationCap size={14} className="text-primary" />
-      </div>
-
-      {/* Mobile Period (Hidden on sm) */}
-      <div className="sm:hidden mb-2 font-mono text-xs text-muted flex items-center gap-1.5">
-        <Calendar size={12} className="text-primary" />
-        {item.period}
-      </div>
-
-      {/* Desktop Period (Absolute positioned left) */}
-      <div className="hidden sm:block absolute left-0 top-9 w-16 text-right font-mono text-xs text-muted">
-        {item.period}
-      </div>
-
-      {/* Content Card */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden">
-        {/* Subtle hover gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-        
-        <div className="relative z-10">
-          <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
-            <div>
-              <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300">
-                {item.degree}
-              </h3>
-              <p className="font-mono text-sm text-muted mt-1">{item.school}</p>
-            </div>
-            <div className="flex items-center gap-1.5 rounded-full bg-orange-500/10 border border-orange-500/20 px-3 py-1 font-mono text-xs text-orange-400 whitespace-nowrap">
-              <Award size={14} />
-              {item.score}
-            </div>
-          </div>
-          <p className="font-body text-sm text-muted/90 leading-relaxed">
-            {item.detail}
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Education() {
   return (
-    <section id="education" className="relative py-24 bg-ink overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/2 left-0 h-[500px] w-[500px] -translate-y-1/2 -translate-x-1/2 rounded-full bg-primary/10 blur-[120px] mix-blend-screen pointer-events-none" />
+    <section id="education" className="relative py-32 bg-ink overflow-hidden">
+      
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[100px] transform-gpu" />
+      </div>
 
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 text-center"
+          transition={{ duration: 0.8 }}
+          className="mb-20 text-center"
         >
-          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 mb-4">
-            <span className="font-mono text-xs text-primary uppercase tracking-wider">Experience</span>
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
-            Education <span className="text-muted font-light">&</span> Journey
+          <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold tracking-widest uppercase mb-6 shadow-[0_0_20px_rgba(139,92,246,0.1)]">
+            Experience
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 tracking-tight">
+            Academic <span className="text-gradient-primary">Journey</span>
           </h2>
-          <p className="font-body text-muted mt-4 max-w-xl mx-auto text-lg">
-            A timeline of my academic background and the foundation of my engineering career.
-          </p>
         </motion.div>
 
         <div className="relative">
-          {EDUCATION.map((item, i) => (
-            <EducationItem
-              key={item.degree}
-              item={item}
-              index={i}
-              isLast={i === EDUCATION.length - 1}
-            />
-          ))}
+          {EDUCATION.map((item, i) => {
+            const isLast = i === EDUCATION.length - 1;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: i * 0.2 }}
+                className="relative pl-10 sm:pl-32 py-8 group"
+              >
+                {/* Timeline Line */}
+                {!isLast && (
+                  <div className="absolute left-[19px] sm:left-[6.5rem] top-20 bottom-[-32px] w-[2px] bg-gradient-to-b from-primary/30 via-secondary/30 to-transparent" />
+                )}
+
+                {/* Timeline Dot */}
+                <div className="absolute left-0 sm:left-[5.5rem] top-10 flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-ink-panel shadow-[0_0_20px_rgba(139,92,246,0.3)] transition-all duration-500 group-hover:scale-110 group-hover:border-primary group-hover:shadow-[0_0_30px_rgba(139,92,246,0.6)] z-10">
+                  <GraduationCap size={18} className="text-primary group-hover:text-white transition-colors duration-500" />
+                </div>
+
+                {/* Mobile Period */}
+                <div className="sm:hidden mb-4 inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wide">
+                  {item.period}
+                </div>
+
+                {/* Desktop Period */}
+                <div className="hidden sm:block absolute left-0 top-11 w-16 text-right text-sm font-bold text-primary">
+                  {item.period}
+                </div>
+
+                {/* Content Card */}
+                <div className="premium-glass-card p-8 group-hover:translate-x-2 transition-transform duration-500">
+                  <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-white/70 transition-all">
+                        {item.degree}
+                      </h3>
+                      <h4 className="text-secondary font-medium">{item.school}</h4>
+                    </div>
+                    <div className="flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur-md shadow-inner">
+                      <Award size={14} className="text-emerald-400" />
+                      {item.score}
+                    </div>
+                  </div>
+                  <p className="text-muted leading-relaxed mt-4">
+                    {item.detail}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
+
       </div>
     </section>
   );

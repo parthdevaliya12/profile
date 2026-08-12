@@ -1,107 +1,140 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
-
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #ef4444; /* red-500 */
-  --color-primary-glow: rgba(239, 68, 68, 0.5);
-  --color-ink: #000000;
-  --color-ink-panel: #0a0a0a;
-  --color-ink-soft: #111111;
-  --color-ink-border: #1a1a1a;
-  --color-paper: #ffffff;
-  --color-muted: #a3a3a3; /* neutral-400 */
+  --color-primary: #10b981; /* emerald-500 */
+  --color-primary-glow: rgba(16, 185, 129, 0.4);
+  --color-secondary: #3b82f6; /* blue-500 */
   
-  --font-display: "Outfit", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --color-ink: var(--theme-ink);
+  --color-ink-panel: var(--theme-ink-panel);
+  --color-ink-soft: var(--theme-ink-soft);
+  --color-ink-border: var(--theme-ink-border);
+  --color-paper: var(--theme-paper);
+  --color-muted: var(--theme-muted);
   
-  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --color-white: var(--theme-white);
+  --color-black: var(--theme-black);
+
+  --font-display: "Syne", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  /* Custom animations */
+  --animate-blob: blob 7s infinite;
+  --animate-aurora: aurora 15s linear infinite;
   --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulseSlow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @layer base {
   :root {
-    --bg-main: #000000;
-    --text-main: #ffffff;
+    --theme-ink: #09090b; /* zinc-950 (Onyx) */
+    --theme-ink-panel: #18181b; /* zinc-900 */
+    --theme-ink-soft: #27272a; /* zinc-800 */
+    --theme-ink-border: rgba(255, 255, 255, 0.1);
+    --theme-paper: #18181b;
+    --theme-muted: #a1a1aa; /* zinc-400 */
+    
+    --theme-white: #ffffff;
+    --theme-black: #000000;
+    
+    --theme-active-pill: rgba(255, 255, 255, 0.1);
+    --theme-active-text: #ffffff;
+    --theme-card-bg: rgba(255, 255, 255, 0.02);
+    --theme-card-border: rgba(255, 255, 255, 0.1);
+    
+    --bg-main: var(--theme-ink);
+    --text-main: var(--theme-white);
+  }
+  
+  html.light {
+    --theme-ink: #f8fafc; /* slate-50 */
+    --theme-ink-panel: #ffffff;
+    --theme-ink-soft: #f1f5f9; /* slate-100 */
+    --theme-ink-border: rgba(0, 0, 0, 0.1);
+    --theme-paper: #ffffff; 
+    --theme-muted: #64748b; /* slate-500 */
+    
+    --theme-white: #0f172a; /* Used for text that should be dark in light mode */
+    --theme-black: #0f172a;
+    
+    --theme-active-pill: #0f172a;
+    --theme-active-text: #ffffff;
+    --theme-card-bg: rgba(0, 0, 0, 0.03);
+    --theme-card-border: rgba(0, 0, 0, 0.08);
+    
+    color-scheme: light;
   }
   
   html {
     scroll-behavior: smooth;
     color-scheme: dark;
+    background-color: var(--bg-main);
+    color: var(--text-main);
   }
 
   body {
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: "Inter", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
-  }
-
-  ::selection {
-    background-color: #ef4444;
-    color: #ffffff;
-  }
-
-  /* Custom Premium Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #000000;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1a1a1a;
-    border-radius: 4px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #333333;
+    @apply antialiased overflow-x-hidden;
   }
 }
 
 @layer utilities {
+  @keyframes blob {
+    0% { transform: translate(0px, 0px) scale(1); }
+    33% { transform: translate(30px, -50px) scale(1.1); }
+    66% { transform: translate(-20px, 20px) scale(0.9); }
+    100% { transform: translate(0px, 0px) scale(1); }
+  }
+  
+  @keyframes aurora {
+    0% { background-position: 50% 50%, 50% 50%; }
+    100% { background-position: 350% 50%, 350% 50%; }
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+  
   .glass {
-    @apply bg-ink-panel/60 backdrop-blur-xl border border-white/5 shadow-xl;
+    @apply bg-white/5 backdrop-blur-lg;
   }
-  .glass-card {
-    @apply bg-ink-soft/40 backdrop-blur-md border border-white/10 hover:border-primary/50 transition-colors duration-300;
+  
+  .premium-glass-card {
+    background-color: var(--theme-card-bg);
+    border-color: var(--theme-card-border);
+    @apply relative backdrop-blur-xl border rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all duration-500 hover:border-primary/50;
   }
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white to-white/60;
+
+  /* Thin glowing border effect via pseudo-element */
+  .premium-glass-card::before {
+    content: '';
+    @apply absolute inset-0 rounded-3xl p-[1px] bg-gradient-to-br from-white/20 to-transparent -z-10 pointer-events-none;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
   }
+
   .text-gradient-primary {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-orange-500;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-orange-500 to-secondary;
+  }
+
+  /* Grid layout for Bento */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1.5rem;
+  }
+  
+  @media (min-width: 1024px) {
+    .bento-grid {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, minmax(200px, auto));
+    }
+    
+    .bento-col-span-2 { grid-column: span 2; }
+    .bento-col-span-3 { grid-column: span 3; }
+    .bento-col-span-4 { grid-column: span 4; }
+    .bento-row-span-2 { grid-row: span 2; }
   }
 }
-
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes pulseSlow {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-}

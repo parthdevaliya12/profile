@@ -1,12 +1,5 @@
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowRight } from "lucide-react";
-import { cn } from "../lib/utils";
-
-// Re-enable image imports from the original codebase
-import p1 from "../assets/p1.png";
-import p2 from "../assets/p2.png";
-import p3 from "../assets/esvio.png";
-import p4 from "../assets/p4.png";
+import { Github, ExternalLink, ArrowRight, Building2, Tv, Wind } from "lucide-react";
 
 const PROJECTS = [
   {
@@ -17,7 +10,9 @@ const PROJECTS = [
     repo: "https://github.com/parthdevaliya12/Airbnb-Clone",
     live: "https://esvio.vercel.app",
     featured: true,
-    img: p3,
+    icon: Building2,
+    gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
+    iconColor: "text-amber-400",
   },
   {
     name: "TeleMart – TV Shopping",
@@ -27,7 +22,9 @@ const PROJECTS = [
     repo: "https://github.com/parthdevaliya12/TeleMart-TV-Django",
     live: "",
     featured: false,
-    img: p2,
+    icon: Tv,
+    gradient: "from-blue-500/20 via-indigo-500/10 to-transparent",
+    iconColor: "text-blue-400",
   },
   {
     name: "AirWell – AC Shopping System",
@@ -37,146 +34,129 @@ const PROJECTS = [
     repo: "https://github.com/parthdevaliya12/AirWell-AC-PHP",
     live: "",
     featured: false,
-    img: p1,
+    icon: Wind,
+    gradient: "from-cyan-500/20 via-teal-500/10 to-transparent",
+    iconColor: "text-cyan-400",
   },
 ];
 
-function ProjectCard({ project, index }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={cn(
-        "group relative rounded-3xl border border-white/10 bg-ink-soft/40 backdrop-blur-md overflow-hidden transition-all duration-500 hover:border-primary/50 hover:shadow-[0_0_40px_rgba(239,68,68,0.15)] hover:-translate-y-2",
-        project.featured ? "lg:col-span-2 grid lg:grid-cols-2" : "col-span-1 flex flex-col"
-      )}
-    >
-      {/* Project Image Box */}
-      <div className={cn(
-        "relative overflow-hidden bg-ink",
-        project.featured ? "h-full min-h-[300px]" : "h-56"
-      )}>
-        <div className="absolute inset-0 bg-gradient-to-t from-ink-panel to-transparent z-10 opacity-60" />
-        <img
-          src={project.img}
-          alt={project.name}
-          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-        />
-        
-        {/* Project Links Overlay */}
-        <div className="absolute top-4 right-4 z-20 flex items-center gap-2 opacity-0 -translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          {project.repo && (
-            <a
-              href={project.repo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-primary transition-colors"
-            >
-              <Github size={18} />
-            </a>
-          )}
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-black/50 backdrop-blur-md text-white hover:bg-primary transition-colors"
-            >
-              <ExternalLink size={18} />
-            </a>
-          )}
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className={cn(
-        "relative p-8 z-20 flex flex-col justify-center",
-        project.featured ? "h-full" : "flex-grow"
-      )}>
-        {/* Background glow on hover */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 -z-10" />
-
-        <div className="flex items-center gap-3 mb-4">
-          <span className="font-mono text-xs font-semibold text-primary uppercase tracking-wider bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
-            {project.type}
-          </span>
-        </div>
-
-        <h3 className="font-display text-2xl font-bold text-white group-hover:text-primary transition-colors duration-300 mb-3">
-          {project.name}
-        </h3>
-
-        <p className="font-body text-muted/90 text-sm leading-relaxed mb-6">
-          {project.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2 mt-auto">
-          {project.stack.map((tech) => (
-            <span
-              key={tech}
-              className="font-mono text-[11px] text-white/70 bg-white/5 border border-white/10 rounded-md px-2.5 py-1.5 transition-colors group-hover:border-primary/30"
-            >
-              {tech}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Projects() {
   return (
-    <section id="projects" className="relative py-28 bg-ink overflow-hidden">
-      {/* Background Ornaments */}
-      <div className="absolute top-40 right-0 h-[600px] w-[600px] rounded-full bg-primary/5 blur-[150px] mix-blend-screen" />
+    <section id="projects" className="relative py-32 bg-ink overflow-hidden">
+      
+      {/* Background Glow */}
+      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none transform-gpu" />
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 md:text-center"
+          transition={{ duration: 0.8 }}
+          className="mb-20 text-center"
         >
-          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 mb-4 md:mx-auto">
-            <span className="font-mono text-xs text-primary uppercase tracking-wider">Portfolio</span>
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
-            Featured <span className="text-gradient-primary">Projects</span>
+          <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold tracking-widest uppercase mb-6">
+            Portfolio
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 tracking-tight">
+            Selected <span className="text-gradient-primary">Works</span>
           </h2>
-          <p className="font-body text-muted mt-4 max-w-xl md:mx-auto text-lg leading-relaxed">
-            A selection of robust applications I've built, focusing on clean code, seamless user experiences, and scalable architecture.
+          <p className="text-muted text-lg max-w-2xl mx-auto">
+            A showcase of my recent engineering efforts, focusing on fluid interfaces and robust backend architectures.
           </p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {PROJECTS.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
-          ))}
+          {PROJECTS.map((project, i) => {
+            const IconComponent = project.icon;
+            return (
+              <motion.div
+                key={project.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: i * 0.15 }}
+                whileHover={{ y: -5 }}
+                className={`premium-glass-card group overflow-hidden ${project.featured ? 'lg:col-span-2 grid lg:grid-cols-2' : 'flex flex-col'}`}
+              >
+                
+                {/* Icon Container */}
+                <div className={`relative overflow-hidden p-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} border-b border-white/5 ${project.featured ? 'lg:border-b-0 lg:border-r min-h-[280px]' : 'h-48'}`}>
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40" />
+                  
+                  <div className="relative z-10 flex flex-col items-center justify-center gap-3">
+                    <div className={`p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md ${project.iconColor} group-hover:scale-110 group-hover:border-white/20 transition-all duration-500 shadow-xl`}>
+                      <IconComponent size={44} className="stroke-[1.75]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Container */}
+                <div className={`p-8 lg:p-10 flex flex-col justify-center relative ${!project.featured ? 'flex-grow' : ''}`}>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                  
+                  <div className="relative z-10">
+                    <span className="text-xs font-semibold text-secondary mb-3 uppercase tracking-wider block">
+                      {project.type}
+                    </span>
+                    
+                    <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-primary transition-colors">
+                      {project.name}
+                    </h3>
+                    
+                    <p className="text-muted leading-relaxed mb-8 text-sm md:text-base">
+                      {project.description}
+                    </p>
+                    
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.stack.map((tech) => (
+                        <span key={tech} className="px-3 py-1.5 text-xs font-medium text-white/90 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-4 mt-auto">
+                      {project.repo && (
+                        <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors">
+                          <Github size={18} />
+                          Source Code
+                        </a>
+                      )}
+                      {project.live && (
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-white hover:text-secondary transition-colors">
+                          <ExternalLink size={18} />
+                          Live Demo
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+              </motion.div>
+            );
+          })}
         </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mt-16"
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-center mt-20"
         >
           <a
             href="https://github.com/parthdevaliya12"
             target="_blank"
             rel="noopener noreferrer"
-            className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-white/5 px-8 font-body text-sm font-medium text-white transition-all hover:border-primary/50 hover:bg-primary/10 hover:text-primary active:scale-95"
+            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
           >
-            <span className="flex items-center gap-2 relative z-10">
-              View All on GitHub
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </span>
+            Explore all on GitHub
+            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
+
       </div>
     </section>
   );

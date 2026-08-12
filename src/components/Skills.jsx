@@ -1,148 +1,99 @@
 import { motion } from "framer-motion";
 import { Monitor, Server, Wrench } from "lucide-react";
-import { cn } from "../lib/utils";
 
 const SKILL_GROUPS = [
   {
     category: "Frontend",
     icon: Monitor,
-    tag: "client",
-    skills: [
-      { name: "React.js", level: 60 },
-      { name: "Tailwind CSS", level: 60 },
-      { name: "JavaScript", level: 60 },
-      { name: "HTML & CSS", level: 80 },
-    ],
+    color: "from-primary",
+    skills: ["React.js", "Tailwind CSS", "JavaScript", "HTML & CSS"],
   },
   {
     category: "Backend",
     icon: Server,
-    tag: "server",
-    skills: [
-      { name: "Node.js", level: 60 },
-      { name: "MongoDB", level: 60 },
-      { name: "PHP", level: 80 },
-      { name: "Java", level: 70 },
-      { name: "Python", level: 50 },
-      { name: "MySQL", level: 80 },
-    ],
+    color: "from-secondary",
+    skills: ["Node.js", "MongoDB", "PHP", "Java", "Python", "MySQL"],
   },
   {
-    category: "Tools",
+    category: "Workflow",
     icon: Wrench,
-    tag: "workflow",
-    skills: [
-      { name: "Git & GitHub", level: 70 },
-      { name: "VS Code", level: 90 },
-      { name: "Vercel / Netlify", level: 70 },
-    ],
+    color: "from-emerald-500",
+    skills: ["Git & GitHub", "VS Code", "Vercel / Netlify", "Render", "Antigravity"],
   },
 ];
 
-function SkillBar({ name, level, delay }) {
-  return (
-    <div className="relative group">
-      <div className="flex justify-between items-baseline mb-2">
-        <span className="font-mono text-sm text-white font-medium group-hover:text-primary transition-colors">{name}</span>
-        <span className="font-mono text-xs text-muted font-semibold">{level}%</span>
-      </div>
-      <div className="h-2 w-full rounded-full bg-ink-border overflow-hidden relative">
-        <motion.div
-          initial={{ width: 0 }}
-          whileInView={{ width: `${level}%` }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5, delay: delay, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute top-0 left-0 h-full rounded-full bg-gradient-to-r from-orange-500 to-primary relative overflow-hidden"
-        >
-          {/* Shimmer effect inside the bar */}
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full animate-[shimmer_2s_infinite]" />
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function SkillCard({ group, index }) {
-  const Icon = group.icon;
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      className="glass-card rounded-2xl p-8 relative overflow-hidden group shadow-lg"
-    >
-      {/* Subtle background glow on hover */}
-      <div className="absolute -top-20 -right-20 h-40 w-40 rounded-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      
-      <div className="relative z-10">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-primary shadow-inner">
-              <Icon size={20} />
-            </div>
-            <h3 className="font-display text-xl font-bold text-white tracking-wide">
-              {group.category}
-            </h3>
-          </div>
-          <span className="font-mono text-[10px] uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded-full px-3 py-1">
-            {group.tag}
-          </span>
-        </div>
-        
-        <div className="space-y-6">
-          {group.skills.map((skill, i) => (
-            <SkillBar
-              key={skill.name}
-              name={skill.name}
-              level={skill.level}
-              delay={0.2 + i * 0.1 + index * 0.15}
-            />
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-28 bg-ink-panel overflow-hidden">
-      {/* Grid Pattern Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:3rem_3rem] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,black_10%,transparent_100%)] opacity-50" />
+    <section id="skills" className="relative py-32 bg-ink overflow-hidden">
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative z-10">
+      {/* Background Elements */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -translate-y-1/2 transform-gpu" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 md:text-center"
+          transition={{ duration: 0.8 }}
+          className="mb-20 text-center"
         >
-          <div className="inline-flex items-center justify-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 mb-4 md:mx-auto">
-            <span className="font-mono text-xs text-primary uppercase tracking-wider">Expertise</span>
-          </div>
-          <h2 className="font-display text-4xl sm:text-5xl font-bold text-white tracking-tight">
+          <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold tracking-widest uppercase mb-6 shadow-[0_0_20px_rgba(139,92,246,0.1)]">
+            Expertise
+          </span>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 tracking-tight">
             Technical <span className="text-gradient-primary">Arsenal</span>
           </h2>
-          <p className="font-body text-muted mt-4 max-w-xl md:mx-auto text-lg leading-relaxed">
-            A comprehensive overview of my technical skills, tools, and the technologies I use to build modern digital products.
+          <p className="text-muted text-lg max-w-2xl mx-auto">
+            The core technologies and tools I use to build scalable, high-performance applications.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {SKILL_GROUPS.map((group, i) => (
-            <SkillCard key={group.category} group={group} index={i} />
-          ))}
-        </div>
-      </div>
+        <div className="grid lg:grid-cols-3 gap-8">
+          {SKILL_GROUPS.map((group, i) => {
+            const Icon = group.icon;
+            return (
+              <motion.div
+                key={group.category}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, delay: i * 0.15 }}
+                whileHover={{ y: -5 }}
+                className="premium-glass-card p-8 group flex flex-col"
+              >
+                <div className={`absolute -right-20 -top-20 w-48 h-48 bg-gradient-to-br ${group.color} to-transparent opacity-0 group-hover:opacity-20 blur-[50px] transition-opacity duration-700 rounded-full`} />
 
-      <style jsx="true">{`
-        @keyframes shimmer {
-          100% { transform: translateX(100%); }
-        }
-      `}</style>
+                <div className="flex items-center gap-4 mb-8">
+                  <div className="h-14 w-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <Icon size={24} className="text-white group-hover:text-primary transition-colors" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white">{group.category}</h3>
+                </div>
+
+                <div className="flex flex-wrap gap-3 mt-auto">
+                  {group.skills.map((skill, j) => (
+                    <motion.div
+                      key={skill}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.3 + (i * 0.1) + (j * 0.05), duration: 0.4 }}
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-xl text-sm font-medium text-white/90 hover:bg-white/10 hover:border-primary/30 hover:shadow-[0_0_15px_rgba(139,92,246,0.3)] transition-all cursor-default"
+                    >
+                      {skill}
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+      </div>
     </section>
   );
 }
