@@ -78,11 +78,11 @@ export default function Hero() {
         <div className="absolute inset-0 grain-overlay opacity-20" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 w-full pt-28 pb-20">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full pt-24 sm:pt-28 pb-16 sm:pb-20">
         <div className="bento-grid">
 
           {/* ═══ Main Hero Card ═══ */}
-          <TiltCard className="premium-glass-card bento-col-span-2 bento-row-span-2 p-8 md:p-12 flex flex-col justify-center">
+          <TiltCard className="premium-glass-card bento-col-span-2 bento-row-span-2 p-6 sm:p-8 md:p-12 flex flex-col justify-center">
             <div className="relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -98,7 +98,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight mb-5"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-display font-bold text-white leading-[1.1] tracking-tight mb-4 sm:mb-5"
               >
                 I craft digital
                 <br />
@@ -109,7 +109,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.8 }}
-                className="text-lg sm:text-xl font-body text-muted mb-8 h-8"
+                className="text-base sm:text-lg md:text-xl font-body text-muted mb-6 sm:mb-8 h-7 sm:h-8"
               >
                 I'm a <span className="text-white/90 font-medium">{text}</span>
                 <span className="inline-block w-[2px] h-5 bg-gold ml-1 align-middle animate-pulse" />
@@ -119,7 +119,7 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
-                className="text-muted text-base leading-relaxed max-w-lg mb-10 font-body"
+                className="text-muted text-sm sm:text-base leading-relaxed max-w-lg mb-8 sm:mb-10 font-body"
               >
                 Building immersive, performant, and beautifully designed digital experiences with modern web technologies.
               </motion.p>
@@ -128,7 +128,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
-                className="flex flex-wrap items-center gap-4"
+                className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4"
               >
                 <a
                   href="#projects"
@@ -136,7 +136,7 @@ export default function Hero() {
                     e.preventDefault();
                     document.querySelector("#projects")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="btn-gold inline-flex items-center gap-2 px-8 py-3.5 rounded-full text-sm font-semibold"
+                  className="btn-gold inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full text-sm font-semibold w-full sm:w-auto justify-center"
                 >
                   View My Work
                   <ArrowRight size={16} />
@@ -147,7 +147,7 @@ export default function Hero() {
                     e.preventDefault();
                     document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
                   }}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-gold/15 text-gold text-sm font-medium hover:bg-gold/5 hover:border-gold/25 transition-all"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full border border-gold/15 text-gold text-sm font-medium hover:bg-gold/5 hover:border-gold/25 transition-all w-full sm:w-auto justify-center"
                 >
                   Know More
                 </a>

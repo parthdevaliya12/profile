@@ -22,7 +22,7 @@ const EDUCATION = [
 
 export default function Education() {
   return (
-    <section id="education" className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+    <section id="education" className="relative py-20 sm:py-28 lg:py-36 bg-ink overflow-hidden">
       
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -30,7 +30,7 @@ export default function Education() {
         <div className="absolute inset-0 dot-pattern opacity-15" />
       </div>
 
-      <div className="max-w-4xl mx-auto px-6 relative z-10">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div
@@ -38,7 +38,7 @@ export default function Education() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-20 text-center px-2"
         >
           <span className="section-tag">Experience</span>
           <h2 className="section-heading">

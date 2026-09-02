@@ -27,7 +27,7 @@ const SKILL_GROUPS = [
 
 export default function Skills() {
   return (
-    <section id="skills" className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+    <section id="skills" className="relative py-20 sm:py-28 lg:py-36 bg-ink overflow-hidden">
 
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -35,7 +35,7 @@ export default function Skills() {
         <div className="absolute inset-0 dot-pattern opacity-15" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Section Header */}
         <motion.div
@@ -43,7 +43,7 @@ export default function Skills() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-20 text-center px-2"
         >
           <span className="section-tag">Expertise</span>
           <h2 className="section-heading">
@@ -55,7 +55,7 @@ export default function Skills() {
         </motion.div>
 
         {/* Skills Grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
           {SKILL_GROUPS.map((group, i) => {
             const Icon = group.icon;
             return (

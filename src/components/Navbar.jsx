@@ -56,7 +56,7 @@ export default function Navbar() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ type: "spring", stiffness: 80, damping: 20, delay: 0.2 }}
         className={cn(
-          "pointer-events-auto flex items-center justify-between px-6 lg:px-10 py-4 transition-all duration-700",
+          "pointer-events-auto flex items-center justify-between px-4 sm:px-6 lg:px-10 py-3 sm:py-4 transition-all duration-700",
           scrolled
             ? "bg-ink/80 backdrop-blur-2xl border-b border-gold/5 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
             : "bg-transparent"

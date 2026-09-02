@@ -50,7 +50,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+    <section id="about" ref={sectionRef} className="relative py-20 sm:py-28 lg:py-36 bg-ink overflow-hidden">
       
       {/* Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -59,7 +59,7 @@ export default function About() {
         <div className="absolute inset-0 dot-pattern opacity-20" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div
@@ -67,7 +67,7 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-20 text-center px-2"
         >
           <span className="section-tag">About Me</span>
           <h2 className="section-heading">
@@ -75,7 +75,7 @@ export default function About() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           
           {/* Left — Personal Story */}
           <motion.div
@@ -87,7 +87,7 @@ export default function About() {
             {/* Decorative gold line */}
             <div className="w-16 h-[2px] bg-gradient-to-r from-gold to-transparent mb-8" />
             
-            <h3 className="text-2xl lg:text-3xl font-display font-semibold text-white/90 mb-6 leading-snug">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-display font-semibold text-white/90 mb-5 sm:mb-6 leading-snug">
               Passionate about turning ideas into<br />
               <span className="text-gold italic">elegant digital solutions.</span>
             </h3>

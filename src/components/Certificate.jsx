@@ -49,13 +49,13 @@ function CertTiltCard({ children, className = "" }) {
 
 export default function Certificate() {
   return (
-    <section id="certificate" className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+    <section id="certificate" className="relative py-20 sm:py-28 lg:py-36 bg-ink overflow-hidden">
       
       {/* Background */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-gold/[0.03] rounded-full blur-[120px] pointer-events-none transform-gpu" />
       <div className="absolute inset-0 dot-pattern opacity-10 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         
         {/* Section Header */}
         <motion.div
@@ -63,7 +63,7 @@ export default function Certificate() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-20 text-center px-2"
         >
           <span className="section-tag">Validation</span>
           <h2 className="section-heading">

@@ -45,7 +45,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative py-28 lg:py-36 bg-ink overflow-hidden">
+    <section id="contact" className="relative py-20 sm:py-28 lg:py-36 bg-ink overflow-hidden">
 
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none">
@@ -54,7 +54,7 @@ export default function Contact() {
         <div className="absolute inset-0 dot-pattern opacity-10" />
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
 
         {/* Section Header */}
         <motion.div
@@ -62,7 +62,7 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="mb-20 text-center"
+          className="mb-12 sm:mb-20 text-center px-2"
         >
           <span className="section-tag">Connect</span>
           <h2 className="section-heading">
@@ -70,7 +70,7 @@ export default function Contact() {
           </h2>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-start">
 
           {/* Left — Contact Info */}
           <motion.div
@@ -82,10 +82,10 @@ export default function Contact() {
             {/* Decorative gold line */}
             <div className="w-16 h-[2px] bg-gradient-to-r from-gold to-transparent mb-8" />
             
-            <h3 className="text-3xl lg:text-4xl font-display font-bold text-white/90 mb-6 leading-snug">
+            <h3 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold text-white/90 mb-4 sm:mb-6 leading-snug">
               Get in <span className="text-gradient-gold italic">Touch</span>
             </h3>
-            <p className="text-muted text-base leading-relaxed mb-12">
+            <p className="text-muted text-sm sm:text-base leading-relaxed mb-8 sm:mb-12">
               Whether you have a question, a project idea, or just want to say hi — I'll try my best to get back to you!
             </p>
 
@@ -93,14 +93,14 @@ export default function Contact() {
               <motion.a
                 href="mailto:parthdevaliya.official@gmail.com"
                 whileHover={{ x: 5 }}
-                className="flex items-center gap-5 group p-4 rounded-xl hover:bg-gold/[0.02] transition-all"
+                className="flex items-center gap-3 sm:gap-5 group p-3 sm:p-4 rounded-xl hover:bg-gold/[0.02] transition-all"
               >
-                <div className="h-14 w-14 rounded-xl bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/60 group-hover:bg-gold/10 group-hover:border-gold/20 group-hover:text-gold group-hover:shadow-[0_0_20px_rgba(200,169,96,0.15)] transition-all duration-300">
-                  <Mail size={22} />
+                <div className="h-11 w-11 sm:h-14 sm:w-14 flex-shrink-0 rounded-xl bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/60 group-hover:bg-gold/10 group-hover:border-gold/20 group-hover:text-gold group-hover:shadow-[0_0_20px_rgba(200,169,96,0.15)] transition-all duration-300">
+                  <Mail size={20} />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-white/40 text-xs font-semibold uppercase tracking-[0.15em] mb-1">Email</h4>
-                  <p className="text-white/80 text-base font-medium group-hover:text-gold transition-colors">
+                  <p className="text-white/80 text-sm sm:text-base font-medium group-hover:text-gold transition-colors truncate">
                     parthdevaliya.official@gmail.com
                   </p>
                 </div>
@@ -108,14 +108,14 @@ export default function Contact() {
 
               <motion.div
                 whileHover={{ x: 5 }}
-                className="flex items-center gap-5 group p-4 rounded-xl hover:bg-gold/[0.02] transition-all"
+                className="flex items-center gap-3 sm:gap-5 group p-3 sm:p-4 rounded-xl hover:bg-gold/[0.02] transition-all"
               >
-                <div className="h-14 w-14 rounded-xl bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/60 group-hover:bg-gold/10 group-hover:border-gold/20 group-hover:text-gold group-hover:shadow-[0_0_20px_rgba(200,169,96,0.15)] transition-all duration-300">
-                  <MapPin size={22} />
+                <div className="h-11 w-11 sm:h-14 sm:w-14 flex-shrink-0 rounded-xl bg-gold/5 border border-gold/10 flex items-center justify-center text-gold/60 group-hover:bg-gold/10 group-hover:border-gold/20 group-hover:text-gold group-hover:shadow-[0_0_20px_rgba(200,169,96,0.15)] transition-all duration-300">
+                  <MapPin size={20} />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h4 className="text-white/40 text-xs font-semibold uppercase tracking-[0.15em] mb-1">Location</h4>
-                  <p className="text-white/80 text-base font-medium group-hover:text-gold transition-colors">
+                  <p className="text-white/80 text-sm sm:text-base font-medium group-hover:text-gold transition-colors">
                     Gujarat, India
                   </p>
                 </div>
