@@ -1,26 +1,42 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Sun, Moon, Code2, MessageSquare } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "../lib/utils";
-import { useTheme } from "../hooks/useTheme";
 
 const NAV_LINKS = [
   { label: "Home", href: "#home" },
+  { label: "About", href: "#about" },
   { label: "Education", href: "#education" },
   { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#home");
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Track active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = NAV_LINKS.map(link => link.href.slice(1));
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.getBoundingClientRect().top <= 150) {
+          setActive(`#${sections[i]}`);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleClick = (href) => {
@@ -33,17 +49,17 @@ export default function Navbar() {
   };
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 pointer-events-none flex justify-center">
+    <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       
       <motion.nav
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+        transition={{ type: "spring", stiffness: 80, damping: 20, delay: 0.2 }}
         className={cn(
-          "pointer-events-auto flex items-center justify-between p-2 rounded-full transition-all duration-500 w-full lg:w-auto",
+          "pointer-events-auto flex items-center justify-between px-6 lg:px-10 py-4 transition-all duration-700",
           scrolled
-            ? "bg-paper/80 backdrop-blur-2xl shadow-[0_8px_32px_rgba(0,0,0,0.1)] border border-ink-border"
-            : "bg-paper/40 backdrop-blur-md shadow-lg border border-transparent"
+            ? "bg-ink/80 backdrop-blur-2xl border-b border-gold/5 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+            : "bg-transparent"
         )}
       >
         
@@ -54,16 +70,18 @@ export default function Navbar() {
             e.preventDefault();
             handleClick("#home");
           }}
-          className="group flex items-center gap-3 pl-3 pr-4 py-2 relative z-50"
+          className="group flex items-center gap-3 relative z-50"
         >
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-tr from-primary to-secondary text-white shadow-md group-hover:shadow-[0_0_15px_rgba(245,158,11,0.5)] transition-shadow">
-            <Code2 size={18} />
+          <div className="relative h-10 w-10 rounded-full overflow-hidden border border-gold/20 group-hover:border-gold/50 transition-all duration-500 group-hover:shadow-[0_0_20px_rgba(200,169,96,0.2)]">
+            <img src="/logo.png" alt="PA Logo" className="h-full w-full object-cover scale-150" />
           </div>
-          <span className="font-display text-lg font-bold text-[var(--theme-white)] tracking-tight">Parth</span>
+          <span className="font-display text-lg font-semibold text-white/90 tracking-wide group-hover:text-gold transition-colors duration-300">
+            Parth<span className="text-gold">.</span>
+          </span>
         </a>
 
-        {/* Desktop Links (Pill Style) */}
-        <ul className="hidden lg:flex items-center gap-1 mx-4">
+        {/* Desktop Links */}
+        <ul className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((link) => {
             const isActive = active === link.href;
             return (
@@ -75,17 +93,17 @@ export default function Navbar() {
                     handleClick(link.href);
                   }}
                   className={cn(
-                    "relative px-5 py-2.5 text-sm font-semibold transition-colors z-10 block rounded-full",
-                    isActive ? "text-[var(--theme-active-text)]" : "text-muted hover:text-[var(--theme-white)]"
+                    "relative px-4 py-2 text-[13px] font-medium tracking-wide transition-all duration-300 block uppercase",
+                    isActive ? "text-gold" : "text-muted hover:text-white/80"
                   )}
                 >
                   {link.label}
                 </a>
                 {isActive && (
                   <motion.div
-                    layoutId="nav-pill"
-                    className="absolute inset-0 bg-[var(--theme-active-pill)] rounded-full z-0 shadow-md"
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    layoutId="nav-indicator"
+                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-gradient-to-r from-gold-dark via-gold to-gold-light rounded-full"
+                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
                   />
                 )}
               </li>
@@ -93,32 +111,29 @@ export default function Navbar() {
           })}
         </ul>
 
-        {/* Desktop Actions */}
-        <div className="hidden lg:flex items-center gap-2 pr-2 relative z-50">
-          <button
-            onClick={toggleTheme}
-            className="flex h-11 w-11 items-center justify-center rounded-full bg-ink/5 hover:bg-ink/10 text-[var(--theme-white)] transition-colors"
-            aria-label="Toggle Theme"
+        {/* Desktop CTA */}
+        <div className="hidden lg:flex items-center gap-3 relative z-50">
+          <a
+            href="#contact"
+            onClick={(e) => {
+              e.preventDefault();
+              handleClick("#contact");
+            }}
+            className="btn-gold inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold"
           >
-            {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
+            Hire Me
+            <ArrowUpRight size={14} />
+          </a>
         </div>
 
         {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center gap-2 pr-2">
-            <button
-                onClick={toggleTheme}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-ink/5 text-[var(--theme-white)] transition-colors"
-                aria-label="Toggle Theme"
-            >
-                {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
-            <button
-                className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full bg-[var(--theme-active-pill)] text-[var(--theme-active-text)] shadow-md"
-                onClick={() => setOpen((o) => !o)}
-            >
-                {open ? <X size={20} /> : <Menu size={20} />}
-            </button>
+        <div className="lg:hidden flex items-center gap-3">
+          <button
+            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full border border-gold/20 text-white/80 hover:text-gold hover:border-gold/40 transition-all"
+            onClick={() => setOpen((o) => !o)}
+          >
+            {open ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
       </motion.nav>
 
@@ -126,17 +141,23 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: -20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: -20 }}
-            transition={{ type: "spring", stiffness: 200, damping: 20 }}
-            className="pointer-events-auto absolute top-20 left-4 right-4 bg-paper/95 backdrop-blur-xl rounded-3xl border border-ink-border shadow-2xl p-6 lg:hidden overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            className="pointer-events-auto fixed inset-0 top-0 bg-ink/98 backdrop-blur-xl z-40 lg:hidden flex flex-col justify-center"
           >
-            <ul className="flex flex-col gap-2 relative z-10">
-              {NAV_LINKS.map((link) => {
+            <ul className="flex flex-col items-center gap-2 px-8">
+              {NAV_LINKS.map((link, i) => {
                 const isActive = active === link.href;
                 return (
-                  <li key={link.href}>
+                  <motion.li
+                    key={link.href}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.05 + 0.1 }}
+                    className="w-full max-w-sm"
+                  >
                     <a
                       href={link.href}
                       onClick={(e) => {
@@ -144,17 +165,34 @@ export default function Navbar() {
                         handleClick(link.href);
                       }}
                       className={cn(
-                        "block px-5 py-4 rounded-2xl transition-all duration-200 font-bold",
+                        "block px-6 py-4 rounded-xl text-center font-display text-2xl font-medium transition-all duration-300",
                         isActive
-                          ? "bg-[var(--theme-active-pill)] text-[var(--theme-active-text)] shadow-md"
-                          : "text-muted hover:bg-black/5 dark:hover:bg-white/5 hover:text-[var(--theme-white)]"
+                          ? "text-gold bg-gold/5 border border-gold/10"
+                          : "text-white/50 hover:text-white/80"
                       )}
                     >
                       {link.label}
                     </a>
-                  </li>
+                  </motion.li>
                 );
               })}
+              <motion.li
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+                className="w-full max-w-sm mt-6"
+              >
+                <a
+                  href="#contact"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleClick("#contact");
+                  }}
+                  className="btn-gold block text-center px-8 py-4 rounded-xl text-lg font-semibold"
+                >
+                  Hire Me
+                </a>
+              </motion.li>
             </ul>
           </motion.div>
         )}

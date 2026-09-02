@@ -1,21 +1,20 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowRight, Building2, Tv, Wind } from "lucide-react";
 
 const PROJECTS = [
   {
-    name: "Esvio – Property Booking Platform",
+    name: "Esvio — Property Booking Platform",
     type: "Marketplace Platform",
-    description: "Esvio is a modern, responsive property listing and booking web application built using the MERN Stack. Users can list properties, browse listings, book properties, and manage bookings.",
+    description: "A modern, responsive property listing and booking web application built using the MERN Stack. Users can list properties, browse listings, book properties, and manage bookings seamlessly.",
     stack: ["MongoDB", "Express.js", "React.js", "Node.js"],
     repo: "https://github.com/parthdevaliya12/Airbnb-Clone",
     live: "https://esvio.vercel.app",
     featured: true,
     icon: Building2,
-    gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
-    iconColor: "text-amber-400",
   },
   {
-    name: "TeleMart – TV Shopping",
+    name: "TeleMart — TV Shopping",
     type: "E-Commerce Platform",
     description: "A complete TV Selling / E-Commerce Website built using Django and SQLite. Includes an Admin Panel to manage products, categories, and orders.",
     stack: ["Django", "SQLite", "JavaScript", "Bootstrap"],
@@ -23,11 +22,9 @@ const PROJECTS = [
     live: "",
     featured: false,
     icon: Tv,
-    gradient: "from-blue-500/20 via-indigo-500/10 to-transparent",
-    iconColor: "text-blue-400",
   },
   {
-    name: "AirWell – AC Shopping System",
+    name: "AirWell — AC Shopping System",
     type: "E-Commerce Platform",
     description: "This project includes product listing, customer management, cart system, and an admin panel to manage products and orders effortlessly.",
     stack: ["PHP", "MySQL", "JavaScript", "Bootstrap"],
@@ -35,20 +32,53 @@ const PROJECTS = [
     live: "",
     featured: false,
     icon: Wind,
-    gradient: "from-cyan-500/20 via-teal-500/10 to-transparent",
-    iconColor: "text-cyan-400",
   },
 ];
 
+// 3D Tilt card for projects
+function ProjectTiltCard({ children, className = "" }) {
+  const ref = useRef(null);
+  const [transform, setTransform] = useState("");
+
+  const handleMouseMove = (e) => {
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    setTransform(`perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`);
+  };
+
+  const handleMouseLeave = () => {
+    setTransform("perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)");
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={className}
+      style={{ transform, transition: "transform 0.4s cubic-bezier(0.03, 0.98, 0.52, 0.99)" }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export default function Projects() {
   return (
-    <section id="projects" className="relative py-32 bg-ink overflow-hidden">
+    <section id="projects" className="relative py-28 lg:py-36 bg-ink overflow-hidden">
       
-      {/* Background Glow */}
-      <div className="absolute top-1/4 right-0 w-[600px] h-[600px] bg-secondary/10 rounded-full blur-[120px] pointer-events-none transform-gpu" />
+      {/* Background */}
+      <div className="absolute top-1/4 right-0 w-[500px] h-[500px] bg-gold/[0.03] rounded-full blur-[120px] pointer-events-none transform-gpu" />
+      <div className="absolute inset-0 dot-pattern opacity-10 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -56,18 +86,17 @@ export default function Projects() {
           transition={{ duration: 0.8 }}
           className="mb-20 text-center"
         >
-          <span className="inline-block py-1.5 px-4 rounded-full bg-white/5 border border-white/10 text-primary text-xs font-semibold tracking-widest uppercase mb-6">
-            Portfolio
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-white mb-6 tracking-tight">
-            Selected <span className="text-gradient-primary">Works</span>
+          <span className="section-tag">Portfolio</span>
+          <h2 className="section-heading">
+            Selected <span className="text-gradient-gold">Works</span>
           </h2>
-          <p className="text-muted text-lg max-w-2xl mx-auto">
+          <p className="text-muted text-base lg:text-lg max-w-2xl mx-auto mt-2">
             A showcase of my recent engineering efforts, focusing on fluid interfaces and robust backend architectures.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        {/* Projects Grid */}
+        <div className="grid lg:grid-cols-2 gap-6">
           {PROJECTS.map((project, i) => {
             const IconComponent = project.icon;
             return (
@@ -77,83 +106,90 @@ export default function Projects() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.8, delay: i * 0.15 }}
-                whileHover={{ y: -5 }}
-                className={`premium-glass-card group overflow-hidden ${project.featured ? 'lg:col-span-2 grid lg:grid-cols-2' : 'flex flex-col'}`}
+                className={project.featured ? 'lg:col-span-2' : ''}
               >
-                
-                {/* Icon Container */}
-                <div className={`relative overflow-hidden p-8 flex items-center justify-center bg-gradient-to-br ${project.gradient} border-b border-white/5 ${project.featured ? 'lg:border-b-0 lg:border-r min-h-[280px]' : 'h-48'}`}>
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:16px_16px] opacity-40" />
-                  
-                  <div className="relative z-10 flex flex-col items-center justify-center gap-3">
-                    <div className={`p-5 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md ${project.iconColor} group-hover:scale-110 group-hover:border-white/20 transition-all duration-500 shadow-xl`}>
-                      <IconComponent size={44} className="stroke-[1.75]" />
+                <ProjectTiltCard
+                  className={`premium-glass-card group overflow-hidden ${project.featured ? 'grid lg:grid-cols-2' : 'flex flex-col'}`}
+                >
+                  {/* Icon Area */}
+                  <div className={`relative overflow-hidden p-8 flex items-center justify-center border-b border-gold/5 ${project.featured ? 'lg:border-b-0 lg:border-r min-h-[280px]' : 'h-48'}`}
+                    style={{ background: 'linear-gradient(135deg, rgba(200,169,96,0.04) 0%, rgba(15,14,19,0.9) 50%, rgba(200,169,96,0.02) 100%)' }}
+                  >
+                    {/* Grid pattern */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(200,169,96,0.04)_1px,transparent_1px)] bg-[size:20px_20px] opacity-50" />
+                    
+                    <div className="relative z-10 flex flex-col items-center justify-center gap-3">
+                      <div className="p-5 rounded-2xl bg-gold/5 border border-gold/10 text-gold/60 group-hover:text-gold group-hover:bg-gold/10 group-hover:border-gold/20 group-hover:shadow-[0_0_30px_rgba(200,169,96,0.15)] transition-all duration-500">
+                        <IconComponent size={40} className="stroke-[1.5]" />
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Content Container */}
-                <div className={`p-8 lg:p-10 flex flex-col justify-center relative ${!project.featured ? 'flex-grow' : ''}`}>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                  
-                  <div className="relative z-10">
-                    <span className="text-xs font-semibold text-secondary mb-3 uppercase tracking-wider block">
-                      {project.type}
-                    </span>
+                  {/* Content */}
+                  <div className={`p-7 lg:p-9 flex flex-col justify-center relative ${!project.featured ? 'flex-grow' : ''}`}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-gold/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                     
-                    <h3 className="text-2xl md:text-3xl font-display font-bold text-white mb-4 group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-                    
-                    <p className="text-muted leading-relaxed mb-8 text-sm md:text-base">
-                      {project.description}
-                    </p>
-                    
-                    <div className="flex flex-wrap gap-2 mb-8">
-                      {project.stack.map((tech) => (
-                        <span key={tech} className="px-3 py-1.5 text-xs font-medium text-white/90 bg-white/5 border border-white/10 rounded-lg backdrop-blur-sm">
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
+                    <div className="relative z-10">
+                      <span className="text-[11px] font-semibold text-gold/60 uppercase tracking-[0.15em] block mb-3">
+                        {project.type}
+                      </span>
+                      
+                      <h3 className="text-2xl md:text-3xl font-display font-bold text-white/90 mb-4 group-hover:text-gold transition-colors duration-300">
+                        {project.name}
+                      </h3>
+                      
+                      <p className="text-muted leading-relaxed mb-7 text-sm">
+                        {project.description}
+                      </p>
+                      
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-2 mb-7">
+                        {project.stack.map((tech) => (
+                          <span key={tech} className="gold-chip text-[11px]">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
 
-                    <div className="flex items-center gap-4 mt-auto">
-                      {project.repo && (
-                        <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-white hover:text-primary transition-colors">
-                          <Github size={18} />
-                          Source Code
-                        </a>
-                      )}
-                      {project.live && (
-                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-semibold text-white hover:text-secondary transition-colors">
-                          <ExternalLink size={18} />
-                          Live Demo
-                        </a>
-                      )}
+                      {/* Links */}
+                      <div className="flex items-center gap-5 mt-auto">
+                        {project.repo && (
+                          <a href={project.repo} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-white/60 hover:text-gold transition-colors">
+                            <Github size={16} />
+                            Source
+                          </a>
+                        )}
+                        {project.live && (
+                          <a href={project.live} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm font-medium text-white/60 hover:text-gold transition-colors">
+                            <ExternalLink size={16} />
+                            Live Demo
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-
+                </ProjectTiltCard>
               </motion.div>
             );
           })}
         </div>
 
+        {/* GitHub CTA */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-center mt-20"
+          className="text-center mt-16"
         >
           <a
             href="https://github.com/parthdevaliya12"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-colors"
+            className="group inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-gold/15 text-gold/80 font-medium text-sm hover:bg-gold/5 hover:border-gold/25 hover:text-gold transition-all"
           >
             Explore all on GitHub
-            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
 
