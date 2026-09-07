@@ -1,8 +1,38 @@
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, ExternalLink, ArrowRight, Building2, Tv, Wind } from "lucide-react";
+import { Github, ExternalLink, ArrowRight, Building2, Tv, Wind, BookOpen, ShoppingBag, Wallet } from "lucide-react";
 
 const PROJECTS = [
+  {
+    name: "Prose — AI-Powered Blog Platform",
+    type: "Full-Stack Web App",
+    description: "MERN blog platform with AI-powered content generation, category-based filtering, like/save tracking, comments, and user profiles with Google Authentication.",
+    stack: ["MongoDB", "Express.js", "React.js", "Node.js", "AI API"],
+    repo: "",
+    live: "https://prose-blog-app.vercel.app/",
+    featured: true,
+    icon: BookOpen,
+  },
+  {
+    name: "SpendIQ — AI Expense Tracker",
+    type: "FinTech App",
+    description: "AI-powered tracker with Gemini API for smart transaction categorization, budget management, and interactive analytics dashboard with spending trends.",
+    stack: ["MongoDB", "Express.js", "React.js", "Node.js", "Gemini API"],
+    repo: "",
+    live: "",
+    featured: true,
+    icon: Wallet,
+  },
+  {
+    name: "Nexiq — E-Commerce Application",
+    type: "E-Commerce Platform",
+    description: "Full-stack e-commerce platform for mobile phones and accessories with cart, checkout, order tracking, and admin dashboard for product management.",
+    stack: ["MongoDB", "Express.js", "React.js", "Node.js"],
+    repo: "",
+    live: "https://nexiq-ecommerce.vercel.app/",
+    featured: false,
+    icon: ShoppingBag,
+  },
   {
     name: "Esvio — Property Booking Platform",
     type: "Marketplace Platform",
@@ -10,7 +40,7 @@ const PROJECTS = [
     stack: ["MongoDB", "Express.js", "React.js", "Node.js"],
     repo: "https://github.com/parthdevaliya12/Airbnb-Clone",
     live: "https://esvio.vercel.app",
-    featured: true,
+    featured: false,
     icon: Building2,
   },
   {
